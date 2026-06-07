@@ -5,6 +5,8 @@ export interface Tenant {
   name: string;
   stripe_customer_id?: string | null;
   subscription_status: string;
+  rod_api_key?: string | null;
+  rod_connected_at?: string | null;
   created_at: string;
 }
 
