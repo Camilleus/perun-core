@@ -1,150 +1,203 @@
-STRATEGIA: Perun Core — Roadmapa do pierwszego 50k PLN MRR w 8-10 tygodni
-Perun Core to Project-First CRM, który łączy sprzedaż z realizacją projektu w jeden spójny rdzeń. Nie budujemy kolejnego ClickUpa. Budujemy narzędzie, które chroni marżę i daje polskim firmom budowlanym, IT services, produkcji i facility management realną przewagę konkurencyjną.
-Klucz do sukcesu:
+Markdown
+# PERUN CORE - AI AGENT MASTER CONTEXT & ARCHITECTURE
 
-Reuse 70% kodu z Veles Academy (auth, billing, dashboard, Supabase, i18n).
-Skupienie na core value: Deal → Auto Project Board + AI do ryzyk i marży.
-Szybka walidacja + Early Bird, żeby mieć pierwsze pieniądze zanim skończymy MVP.
+## 🤖 SYSTEM INSTRUCTIONS FOR AI CODING AGENTS
+**ROLE:** You are an expert Full-Stack TypeScript Developer, Next.js Architect, and Supabase Database Administrator. 
+**OBJECTIVE:** Your goal is to build "Perun Core", a Project-First CRM SaaS.
+**STRICT RULES:**
+1. **Tech Stack:** Next.js 16 (App Router), React Server Components (RSC) by default, Server Actions for mutations, Tailwind CSS, shadcn/ui for components, Supabase (PostgreSQL + Auth), Lucide Icons.
+2. **Type Safety:** Strict TypeScript. Always define interfaces/types for database rows and API responses. Use Zod for form/input validation.
+3. **Data Security:** Multi-tenancy is mandatory. EVERY query must be filtered by `tenant_id`. Row Level Security (RLS) must be enabled on ALL tables.
+4. **Code Reuse:** Assume authentication, basic routing, and standard UI components (buttons, inputs, modals) are ported from a previous project ("Veles Academy"). Do not reinvent the wheel.
+5. **Business Logic:** The core value is tracking "Planned Budget vs Actual Cost" (Margin Protection). Do not overcomplicate features outside of this MVP scope.
 
+---
 
-ROADMAPA — 4 FAZY (realistyczna dla Twojego czasu)
-Faza 0: Init & Fundament (Tydzień 1)
+## 🏗️ 1. PROJECT DEFINITION & BUSINESS LOGIC
+**Product:** Perun Core
+**Type:** B2B SaaS (Project-First CRM)
+**Core Flow:** 1. User creates a `Deal` in the CRM pipeline.
+2. When `Deal` is won, user clicks "Convert to Project".
+3. System automatically creates a `Project` linked to that Deal, carrying over the `Planned Budget`.
+4. User tracks `Actual Cost` across `Project Stages` to monitor Margin in real-time.
 
-Utworzenie repo, setup Next.js + Supabase
-Rebranding + podstawowy landing page
-Schemat bazy + RLS
-Stripe + auth (reuse z Academy)
+---
 
-Faza 1: MVP — Core Product (Tygodnie 2-5)
+## 📂 2. DIRECTORY STRUCTURE
+Maintain this strict Next.js App Router structure:
 
-Kontakty + Firmy + Deale Pipeline (kanban)
-„Convert Deal to Project” → automatyczny Project Board
-Etapy, tolerancje (czas/koszt/zakres), rejestr ryzyk
-Real-time dashboard marży (planned vs actual)
-Podstawowy AI Co-Pilot (Claude)
-Import z Excela + prosty onboarding
-Polish + Early Bird landing + Stripe
-
-Faza 2: Product-Market Fit (Tygodnie 6-8)
-
-Zaawansowany AI (sugestie Exception Report, aktualizacja Business Case)
-Szablony branżowe (budownictwo, IT, produkcja, FM)
-Time tracking + billing
-Raporty Project Board
-Mobile PWA
-Pierwsze 20-30 płatnych klientów
-
-Faza 3: Skalowanie (miesiąc 3-6)
-
-White-label + Enterprise features (SSO, audit log)
-Marketplace szablonów
-Zaawansowane integracje (InFakt, Comarch, banki)
-Content machine + partnerzy
-Cel: 50k+ PLN MRR
-
-
-STRUKTURA DANYCH (Supabase) — Kluczowe tabele
-SQL-- Firmy i użytkownicy
-tenants (id, name, slug, owner_id, created_at)
-tenant_members (tenant_id, user_id, role)
-
--- Sprzedaż
-deals (id, tenant_id, name, value_pln, probability, stage, close_date, project_id)
-
--- Projekty (serce systemu)
-projects (
-  id, tenant_id, name, deal_id, 
-  status, start_date, end_date,
-  budget_pln, actual_cost_pln, margin_pln,
-  created_at
-)
-
--- Project Board
-project_stages (
-  id, project_id, name, order_num,
-  tolerance_time_days, tolerance_cost_pln,
-  status
-)
-
-tolerances (
-  id, project_id, type (time|cost|scope|quality),
-  planned, current, status, last_updated
-)
-
-risks (
-  id, project_id, description, probability, impact,
-  owner_id, status, mitigation, created_at
-)
-
--- Dokumenty i raporty
-project_documents (
-  id, project_id, type ('PID'|'ExceptionReport'|'LessonsLog'|'Contract'),
-  file_path, version, created_at
-)
-
--- Margin tracking
-margin_snapshots (
-  id, project_id, planned_margin, actual_margin,
-  snapshot_date
-)
-Dodatkowo: user_progress (reuse z Academy) dla onboardingu.
-
-ZALECANA STRUKTURA REPO
-textperun-core/
+```text
+perun-core/
 ├── app/
-│   ├── (marketing)/          # landing page, waitlist
-│   ├── dashboard/            # główny dashboard
-│   ├── projects/             # Project Board
-│   ├── deals/                # Pipeline
-│   └── api/                  # Stripe, AI, etc.
+│   ├── (auth)/               # Login, Register, Callback
+│   ├── (dashboard)/
+│   │   ├── layout.tsx        # Dashboard shell (Sidebar, Header)
+│   │   ├── pipeline/         # Deal Kanban Board
+│   │   ├── projects/         # Project list and active projects
+│   │   │   └── [id]/         # Project Detail View (Board + Margin)
+│   │   └── settings/         # Tenant & User settings
+│   ├── api/                  # Webhooks (Stripe) and external integrations
+│   ├── globals.css
+│   └── layout.tsx            # Root layout (Providers, Fonts)
 ├── components/
-│   ├── core/                 # ProjectBoard, ToleranceCard, RiskRegister
-│   └── ui/                   # reuse z Academy
+│   ├── core/                 # Business logic components (Kanban, MarginBar)
+│   ├── ui/                   # shadcn/ui generic components (Button, Input, Dialog)
+│   └── layout/               # Sidebar, Topbar
 ├── lib/
-│   ├── supabase/             # client + server
-│   ├── actions/              # Server Actions
-│   └── ai/                   # Claude prompts
-├── types/                    # database.ts + Perun types
-├── supabase/migrations/      # SQL schemy
-└── README.md
+│   ├── supabase/             # Supabase clients (server, client, admin)
+│   ├── actions/              # Next.js Server Actions (deal.actions.ts, project.actions.ts)
+│   ├── utils.ts              # Tailwind merge (cn), formatting utils
+│   └── validations.ts        # Zod schemas
+├── types/
+│   ├── database.types.ts     # Supabase generated types
+│   └── index.ts              # Custom mapped interfaces
+└── supabase/
+    ├── migrations/           # SQL migration files
+    └── seed.sql              # Initial dummy data
+🗄️ 3. DATABASE SCHEMA (SUPABASE POSTGRESQL)
+The MVP is the "Naked Core" for Margin Tracking. All tables must include tenant_id.
 
-GOTOWY README.md (skopiuj i wklej)
-Markdown# Perun Core
+3.1 Core Multi-Tenancy
+SQL
+-- TENANTS (Workspaces)
+CREATE TABLE tenants (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name TEXT NOT NULL,
+  stripe_customer_id TEXT,
+  subscription_status TEXT DEFAULT 'trialing',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-**Project-First CRM dla firm, które zarabiają na projektach.**
+-- PROFILES (Users mapped to Tenants)
+CREATE TABLE profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE,
+  full_name TEXT,
+  role TEXT DEFAULT 'member', -- 'owner', 'admin', 'member'
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+3.2 CRM (Pipeline)
+SQL
+-- DEALS (Sales Pipeline)
+CREATE TABLE deals (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE NOT NULL,
+  title TEXT NOT NULL,
+  client_name TEXT,
+  value_planned_pln NUMERIC(10, 2) DEFAULT 0.00,
+  stage TEXT DEFAULT 'lead', -- 'lead', 'negotiation', 'won', 'lost'
+  expected_close_date DATE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+3.3 Project Execution (The Core)
+SQL
+-- PROJECTS (Created from Won Deals)
+CREATE TABLE projects (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE NOT NULL,
+  deal_id UUID REFERENCES deals(id) ON DELETE SET NULL, -- Link to origin
+  name TEXT NOT NULL,
+  status TEXT DEFAULT 'active', -- 'active', 'on_hold', 'completed'
+  budget_planned_pln NUMERIC(10, 2) NOT NULL,
+  cost_actual_pln NUMERIC(10, 2) DEFAULT 0.00,
+  start_date DATE,
+  end_date DATE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-Perun Core automatycznie zamienia zamknięty deal w pełny Project Board (PID, etapy, tolerancje, ryzyka) i chroni marżę w czasie rzeczywistym dzięki AI.
+-- PROJECT STAGES (Board Columns / Milestones)
+CREATE TABLE project_stages (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  project_id UUID REFERENCES projects(id) ON DELETE CASCADE NOT NULL,
+  name TEXT NOT NULL,
+  order_index INTEGER NOT NULL,
+  budget_allocated_pln NUMERIC(10, 2) DEFAULT 0.00,
+  cost_actual_pln NUMERIC(10, 2) DEFAULT 0.00,
+  status TEXT DEFAULT 'pending', -- 'pending', 'in_progress', 'done'
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+3.4 Row Level Security (RLS) Policy Example (Mandatory)
+SQL
+-- Example for DEALS table
+ALTER TABLE deals ENABLE ROW LEVEL SECURITY;
 
-## Tech Stack
-- Next.js 16 (App Router)
-- Supabase (PostgreSQL + Auth)
-- Stripe
-- Anthropic Claude (AI Co-Pilot)
-- Tailwind + shadcn/ui
-- Vercel
+CREATE POLICY "Users can view deals in their tenant" 
+ON deals FOR SELECT 
+USING (tenant_id = (SELECT tenant_id FROM profiles WHERE id = auth.uid()));
 
-## Kluczowe funkcje
-- Deal → Auto Project Board
-- Real-time margin tracking
-- AI wykrywanie ryzyk i Exception Reports
-- Tolerancje i zarządzanie zmianami
-- Szablony branżowe (budownictwo, IT, produkcja)
+CREATE POLICY "Users can insert deals in their tenant" 
+ON deals FOR INSERT 
+WITH CHECK (tenant_id = (SELECT tenant_id FROM profiles WHERE id = auth.uid()));
+🗺️ 4. EXECUTION ROADMAP (MVP ONLY)
+Agents must follow this sequential order for development.
 
-## Szybki start
+Phase 0: Foundation & Auth
+[ ] Initialize Next.js project with Tailwind and shadcn/ui.
 
-```bash
-git clone https://github.com/Camilleus/perun-core.git
-cd perun-core
-cp .env.example .env.local
-npm install
-npm run dev
-Roadmapa
-Faza 0 (Tydzień 1) — Init + baza
-Faza 1 (Tygodnie 2-5) — MVP (Pipeline + Project Board + Margin)
-Faza 2 (Tygodnie 6-8) — AI + branżowe szablony
-Faza 3 — Skalowanie + Enterprise
+[ ] Setup Supabase client configurations (lib/supabase/server.ts, client.ts).
 
-STRATEGIA BIZNESOWA
-Early Bird: 19 zł/użytkownik/mies przez pierwsze 6 miesięcy dla pierwszych 10 firm.
-Cel: 10 płatnych klientów do końca Fazy 2.
-```
+[ ] Execute SQL migrations for tenants and profiles with RLS.
+
+[ ] Implement Authentication flow (Login/Register) utilizing Supabase Auth.
+
+[ ] Create basic Dashboard Layout with Sidebar navigation.
+
+Phase 1: The Pipeline (CRM)
+[ ] Execute SQL migrations for deals table + RLS.
+
+[ ] Create Server Actions for Deals (createDeal, updateDealStage).
+
+[ ] Build /pipeline page: Implement a Kanban board UI for Deal stages.
+
+[ ] Implement "Won" action: Create a modal to finalize value_planned_pln before converting.
+
+Phase 2: Convert Deal to Project (The Magic Moment)
+[ ] Execute SQL migrations for projects and project_stages + RLS.
+
+[ ] Create Server Action convertDealToProject:
+
+Takes deal_id.
+
+Creates a project row copying the value_planned_pln to budget_planned_pln.
+
+Generates default project_stages (e.g., "Preparation", "Execution", "Closing").
+
+[ ] Wire this action to the Kanban board "Convert" button.
+
+Phase 3: Project Board & Margin Dashboard
+[ ] Build /projects page: Data table listing all projects with their overall health (Budget vs Cost).
+
+[ ] Build /projects/[id] page:
+
+Header: Dynamic Margin Bar (Visualizing budget_planned_pln minus cost_actual_pln).
+
+Body: Stage Kanban/List. Allow users to update cost_actual_pln per stage.
+
+[ ] Create Server Action to update stage costs, which uses a database trigger or recalculates the total cost_actual_pln on the parent Project.
+
+Phase 4: Alerty (UI Only MVP)
+[ ] Implement UI logic in /projects/[id]: If cost_actual_pln > budget_planned_pln * 0.9, render a warning Banner component ("Warning: Approaching Budget Limit").
+
+🛠️ 5. CODING CONVENTIONS FOR AI
+Server Actions First: All database mutations must happen via Server Actions in lib/actions/. Do not write API routes for database CRUD.
+
+Error Handling: Server Actions must return objects in the format: { success: boolean, data?: any, error?: string }.
+
+Fetching Data: Use React Server Components (RSC) to fetch data directly from Supabase server client. Pass data down to Client Components as props.
+
+Styling: Use standard Tailwind utility classes. For complex conditional classes, use the provided cn() utility (clsx + tailwind-merge).
+
+No Placeholders: Do not write // TODO: implement logic. Write the actual logic. If you lack context, ask the human user.
+
+
+### STRATEGIA UŻYCIA (Jak pracować z tym plikiem)
+
+Kiedy otwierasz narzędzie typu Cursor, v0.dev lub GitHub Copilot Workspace, wgrywasz ten plik i piszesz prompt startowy:
+> *"Zbuduj architekturę aplikacji zgodnie z załączonym plikiem README.md. Jesteśmy w Fazie 0 i Fazie 1. Przeczytaj sekcję DATABASE SCHEMA i wygeneruj dla mnie pliki SQL z pełnym RLS, a następnie stwórz Server Actions do obsługi Deals."*
+
+Dzięki temu, że agent AI czyta ten plik:
+1. Nie wymyśli własnej struktury bazy (wie o `tenants` i `tenant_id`).
+2. Zrozumie, że to Server Actions, a nie stare API routes.
+3. Skupi się na przepływie pieniędzy (Budget vs Cost), ignorując pisanie kodu do wysyłania emaili marketingowych czy innych śmieci.
+
+To jest Twój kod genetyczny dla MVP Perun Core. Zaczynamy kodować?
