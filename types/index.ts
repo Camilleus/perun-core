@@ -52,3 +52,27 @@ export interface ProjectStage {
   status: 'pending' | 'in_progress' | 'done';
   created_at: string;
 }
+
+export interface Risk {
+  id: string;
+  project_id: string;
+  tenant_id: string;
+  title: string;
+  probability: 'low' | 'medium' | 'high';
+  impact: 'low' | 'medium' | 'high';
+  owner_id?: string | null;
+  status: 'active' | 'mitigated' | 'closed';
+  mitigation_plan?: string | null;
+  created_at: string;
+}
+
+export interface Alert {
+  id: string;
+  project_id?: string | null;
+  tenant_id: string;
+  type: 'margin_drop' | 'budget_overrun' | 'risk_detected';
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  message: string;
+  is_read: boolean;
+  created_at: string;
+}
