@@ -4,13 +4,14 @@ import {
   ArrowLeft,
   BarChart3,
   Edit3,
-  ShieldAlert,
-  Plus
+  ShieldAlert
 } from "lucide-react";
 import Link from "next/link";
 import { getProjectWithMargin, updateStageActualCost } from "@/lib/actions/project.actions";
 import { getActiveAlerts } from "@/lib/actions/alert.actions";
 import { AICopilot } from "@/components/ai-copilot";
+import { AddRiskDialog } from "@/components/add-risk-dialog";
+import { RiskRow } from "@/components/risk-row";
 import { ProjectStage, Alert, Risk } from "@/types";
 
 export default async function ProjectDetailPage({ params }: { params: { id: string } }) {
@@ -55,14 +56,24 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
             <div
               key={alert.id}
               className={cn(
-                "p-4 rounded-xl border flex items-center gap-4 animate-pulse",
-                alert.severity === 'critical' ? "bg-red-500/10 border-red-500/50 text-red-500" :
-                alert.severity === 'high' ? "bg-accent/10 border-accent/50 text-accent" :
-                "bg-blue-500/10 border-blue-500/50 text-blue-500"
+                "p-4 rounded-xl border-2 flex items-center gap-4",
+                alert.severity === 'critical' ? "bg-red-500/20 border-red-500 text-red-500 animate-pulse" :
+                alert.severity === 'high' ? "bg-accent/20 border-accent text-accent" :
+                "bg-blue-500/20 border-blue-500 text-blue-500"
               )}
             >
-              <ShieldAlert className="w-6 h-6 shrink-0" />
-              <p className="font-bold text-sm tracking-tight">{alert.message}</p>
+              <div className={cn(
+                "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
+                alert.severity === 'critical' ? "bg-red-500 text-white" :
+                alert.severity === 'high' ? "bg-accent text-primary" :
+                "bg-blue-500 text-white"
+              )}>
+                <ShieldAlert className="w-6 h-6" />
+              </div>
+              <div>
+                 <p className="font-black text-sm tracking-tight uppercase">{alert.type.replace('_', ' ')}</p>
+                 <p className="font-bold text-sm opacity-90">{alert.message}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -78,29 +89,42 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
           <div>
             <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-1">Current Margin Protection</p>
             <h2 className={cn(
-                "text-6xl font-black",
-                project.margin_percentage < 20 ? "text-red-500" : "text-accent"
+                "text-6xl font-black transition-colors duration-500",
+                project.burn_percentage > 100 ? "text-red-600" :
+                project.burn_percentage > 90 ? "text-red-500" :
+                project.burn_percentage > 75 ? "text-yellow-500" :
+                "text-accent"
             )}>{project.margin_percentage}%</h2>
           </div>
           <div className="text-right">
             <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-1">Available Runway</p>
-            <p className="text-3xl font-black text-white">{formatCurrency(project.remaining_budget)}</p>
+            <p className={cn(
+              "text-3xl font-black transition-colors duration-500",
+              project.remaining_budget < 0 ? "text-red-500" : "text-white"
+            )}>{formatCurrency(project.remaining_budget)}</p>
           </div>
         </div>
 
         <div className="space-y-4 relative z-10">
-          <div className="h-8 w-full bg-white/5 rounded-2xl overflow-hidden flex border-2 border-white/10 p-1.5 shadow-inner">
+          <div className="h-10 w-full bg-white/5 rounded-2xl overflow-hidden flex border-2 border-white/10 p-1.5 shadow-inner">
             <div
               className={cn(
-                "h-full rounded-xl transition-all duration-1000 ease-out shadow-lg",
-                project.margin_percentage < 20 ? "bg-red-500" : "bg-accent"
+                "h-full rounded-xl transition-all duration-1000 ease-out shadow-lg relative",
+                project.burn_percentage > 100 ? "bg-red-600" :
+                project.burn_percentage > 90 ? "bg-red-500" :
+                project.burn_percentage > 75 ? "bg-yellow-500" :
+                "bg-accent"
               )}
-              style={{ width: `${Math.min(100, (project.cost_actual_pln / project.budget_planned_pln) * 100)}%` }}
-            />
+              style={{ width: `${Math.min(100, project.burn_percentage)}%` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-shimmer" />
+            </div>
           </div>
-          <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] px-2 text-gray-500">
-             <span>Actual Burn</span>
-             <span>Budget Cap</span>
+          <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] px-2">
+             <span className={cn(
+               project.burn_percentage > 75 ? "text-red-400" : "text-gray-500"
+             )}>Actual Burn: {project.burn_percentage}%</span>
+             <span className="text-gray-500">Budget Cap: {formatCurrency(project.budget_planned_pln)}</span>
           </div>
         </div>
       </div>
@@ -155,9 +179,7 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-2xl font-black text-white">Risk Register</h3>
-            <button className="text-accent hover:text-accent/80 transition-colors">
-               <Plus className="w-6 h-6" />
-            </button>
+            <AddRiskDialog projectId={params.id} />
           </div>
           <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-md">
             <table className="w-full text-left border-collapse">
@@ -170,25 +192,7 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
               </thead>
               <tbody className="divide-y divide-border/50">
                 {risks && risks.length > 0 ? (risks as Risk[]).map((risk) => (
-                  <tr key={risk.id} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="px-4 py-4">
-                      <p className="font-bold text-sm text-white">{risk.title}</p>
-                      <p className="text-[10px] text-gray-500 italic mt-0.5">{risk.mitigation_plan}</p>
-                    </td>
-                    <td className="px-4 py-4">
-                      <span className={cn(
-                        "px-2 py-0.5 rounded text-[10px] font-black uppercase",
-                        risk.impact === 'high' ? "bg-red-500/20 text-red-500" :
-                        risk.impact === 'medium' ? "bg-accent/20 text-accent" :
-                        "bg-blue-500/20 text-blue-500"
-                      )}>
-                        {risk.impact}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4">
-                       <span className="text-xs text-gray-400 font-bold capitalize">{risk.status}</span>
-                    </td>
-                  </tr>
+                  <RiskRow key={risk.id} risk={risk} />
                 )) : (
                   <tr>
                     <td colSpan={3} className="px-4 py-8 text-center text-gray-500 italic text-sm">

@@ -76,3 +76,7 @@ export interface Alert {
   is_read: boolean;
   created_at: string;
 }
+
+export type ActionResult<T = unknown> =
+  | { success: true; data: T }
+  | { success: false; error: string };

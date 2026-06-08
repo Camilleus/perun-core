@@ -37,3 +37,41 @@ export async function updateRodIntegration(formData: FormData) {
 
   revalidatePath('/settings/organization');
 }
+
+export async function updateTenantName(name: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('tenant_id')
+    .eq('id', user.id)
+    .single();
+
+  if (!profile) throw new Error('Profile not found');
+
+  const { error } = await supabase
+    .from('tenants')
+    .update({ name })
+    .eq('id', profile.tenant_id);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath('/');
+}
+
+export async function completeOnboarding() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ onboarded: true })
+    .eq('id', user.id);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath('/');
+}
