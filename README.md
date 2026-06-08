@@ -83,14 +83,14 @@ This single flow — **deal → won → convert → track margin** — is the he
 
 ## ✨ Scope (MVP)
 
-### ✅ In scope (the "Naked Core")
+### ✅ In scope (the "Naked Core" & Zero-Friction Onboarding)
 - Multi-tenant workspaces with strict data isolation (RLS on every table).
-- Email/password auth (Supabase Auth) + basic profile/role.
 - Sales pipeline (Deals) as a Kanban board.
 - "Convert to Project" action (the magic moment).
-- Projects with stages and **line-item actual costs**.
-- Real-time **margin** (planned budget vs actual cost) at project and stage level.
-- Budget-limit **alert banner** (UI logic).
+- Projects with stages and line-item actual costs.
+- **Bulk CSV/Excel Cost Import (CRITICAL):** A simple drag-and-drop dropzone to upload exports from their current accounting software or bank. The system must auto-map columns (Date, Amount, Supplier) to `costs`.
+- Real-time margin (planned budget vs actual cost) at project and stage level.
+- Budget-limit alert banner.
 
 ### ❌ Out of scope (do NOT build for MVP)
 - Full ERP (accounting ledgers, payroll, warehouse). _That is a separate product (codename **ROD**); Perun grows toward it later via land-and-expand — not now._
@@ -160,6 +160,14 @@ perun-core/
 ## 🗄️ Database Schema
 
 ```mermaid
+flowchart LR
+    A([New Deal]) --> B{Won?}
+    B -- "Yes" --> C[Convert to Project]
+    C --> D[Budget Carried Over]
+    D --> E[Drag & Drop CSV/Excel<br/>Cost Export]
+    E --> F[System auto-maps &<br/>creates Cost line items]
+    F --> G([Instant Real-time Margin<br/>& Runway Alerts])
+
 erDiagram
     TENANTS ||--o{ PROFILES : has
     TENANTS ||--o{ DEALS : owns
@@ -210,6 +218,8 @@ erDiagram
         text source
     }
 ```
+
+Jeśli pozwalamy na masowy import, ludzie będą popełniać błędy. Wrzucą zły plik i zepsują sobie marżę. Musisz dodać mechanizm "Undo" (Cofnij).
 
 **Conventions for every table:**
 - `id UUID PRIMARY KEY DEFAULT gen_random_uuid()`.
@@ -313,20 +323,22 @@ create index idx_stages_project on project_stages(project_id);
 ```sql
 -- COSTS (individual actual-cost line items)
 create table costs (
-  id            uuid primary key default gen_random_uuid(),
-  tenant_id     uuid not null references tenants(id) on delete cascade,
-  project_id    uuid not null references projects(id) on delete cascade,
-  stage_id      uuid references project_stages(id) on delete set null, -- optional: unassigned costs allowed
-  description   text not null,
-  amount_pln    numeric(14, 2) not null,
-  category      text, -- 'materials', 'labor', 'subcontractor', 'equipment', 'other'
-  supplier_name text,
-  incurred_on   date default current_date,
-  source        text default 'manual', -- 'manual', 'ksef', 'ocr', 'import'  <-- future-proofing
-  document_url  text, -- link to invoice/receipt (Supabase Storage), optional
-  created_at    timestamptz default now(),
-  updated_at    timestamptz default now()
+  id               uuid primary key default gen_random_uuid(),
+  tenant_id        uuid not null references tenants(id) on delete cascade,
+  project_id       uuid not null references projects(id) on delete cascade,
+  stage_id         uuid references project_stages(id) on delete set null,
+  description      text not null,
+  amount_pln       numeric(14, 2) not null,
+  category         text, 
+  supplier_name    text,
+  incurred_on      date default current_date,
+  source           text default 'manual', -- 'manual', 'csv_import', 'ksef', 'ocr'
+  import_batch_id  uuid, -- CRITICAL FOR UNDO: allows bulk deleting a bad CSV upload
+  document_url     text, 
+  created_at       timestamptz default now(),
+  updated_at       timestamptz default now()
 );
+create index idx_costs_batch on costs(import_batch_id);
 create index idx_costs_tenant  on costs(tenant_id);
 create index idx_costs_project on costs(project_id);
 create index idx_costs_stage   on costs(stage_id);
@@ -526,6 +538,12 @@ Build **sequentially**. Do not start a later phase until the current one is comp
   - [ ] Cost dialog must be **fast**: amount + description + category, sensible defaults, keyboard-friendly.
 - [ ] Verify the trigger keeps `cost_actual_pln` correct on add/edit/delete/move.
 
+### Phase 3.5 — The Concierge Data Import (Zero-Friction)
+- [ ] Server Action: `processCostImport(file, projectId)`.
+- [ ] Add `import_batch_id` to costs table to group bulk uploads.
+- [ ] UI: Build a Drag & Drop area in the Project Detail view accepting `.csv` and `.xlsx` files.
+- [ ] UI: Provide a one-click "Undo last import" button that deletes all costs matching the `import_batch_id` and triggers `recalc_actuals`.
+
 ### Phase 4 — Alerts (UI-only MVP)
 - [ ] On `/projects/[id]`: render a warning banner when `burnPct > 90` (and a stronger one when over budget).
 
@@ -642,6 +660,7 @@ STRIPE_WEBHOOK_SECRET=
 
 ## 🎨 Design & UX Principles
 
+- **Zero Data-Entry Philosophy:** The owner is running a heavy operational business, not a data-entry firm. The primary way to add costs must be bulk import (CSV/Excel) or automated sync. Manual entry is a fallback, not the standard.
 - **30-second clarity.** An owner should open a project and instantly see: am I making money or losing it?
 - **Cost entry is sacred.** The "add cost" path must be the fastest thing in the app — minimal fields, smart defaults, keyboard-first. This is where margin tools usually die.
 - **Mobile matters.** Work happens on site. Logging a cost from a phone must be effortless (and is the natural home for future OCR/KSeF capture).
