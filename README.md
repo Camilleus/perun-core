@@ -673,3 +673,24 @@ STRIPE_WEBHOOK_SECRET=
 **Perun Core** — _build the margin you sold._
 
 </div>
+
+---
+
+## 🚀 Current Status (End of Phase 2)
+
+Phase 2 — **Alerts, Risk Register, and AI Co-Pilot** — has been successfully implemented.
+
+### 💎 Key Features Delivered:
+- **Risk Register**: Dedicated table and UI for tracking project risks with probability/impact metadata and mitigation plans.
+- **Automated Margin Alerts**: System monitors `burnPct` in real-time.
+  - `burnPct > 75%`: Warning (Yellow)
+  - `burnPct > 90%`: Critical (Red)
+  - `burnPct > 100%`: Budget Overrun (Critical Alert)
+- **AI Co-Pilot**: Intelligent project analysis using a margin-protection prompt. Provides summaries, detects threats, and gives strategic recommendations.
+- **Enhanced Margin Bar**: Highly visual, dynamic indicator that changes color and state based on financial health.
+- **Strict Multi-Tenancy**: All new tables (`risks`, `alerts`) are fully isolated via RLS and `tenant_id`.
+
+### 🛠️ Technical Implementation:
+- **Migrations**: `supabase/migrations/003_alerts_risks.sql` adding core tables and RLS.
+- **Server Actions**: `generateMarginAlerts`, `createRisk`, and `analyzeProjectRisks` in `lib/actions/`.
+- **UI Components**: `AddRiskDialog` for seamless data entry and updated `ProjectDetail` view.

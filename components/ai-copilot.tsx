@@ -20,7 +20,11 @@ export function AICopilot({ projectId }: { projectId: string }) {
     setLoading(true);
     try {
       const res = await analyzeProjectRisks(projectId);
-      setAnalysis(res);
+      if (res.success) {
+        setAnalysis(res.data);
+      } else {
+        console.error(res.error);
+      }
     } catch (err) {
       console.error(err);
     } finally {
