@@ -11,7 +11,10 @@ import {
   CheckCircle2,
   ArrowRight,
   Sparkles,
-  Zap
+  Zap,
+  ShieldCheck,
+  BarChart3,
+  MousePointerClick
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -49,8 +52,6 @@ export function OnboardingWizard() {
       const formData = new FormData();
       formData.append('title', dealTitle);
       formData.append('value', dealValue);
-      // Explicitly ensuring value_planned_pln is captured as 'value' in the formData
-      // which is then parsed in createDeal action.
       await createDeal(formData);
       setStep(3);
     } catch (err) {
@@ -76,16 +77,16 @@ export function OnboardingWizard() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-in fade-in duration-500">
-      <div className="bg-[#0a0a0a] border border-border w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl relative">
+      <div className="bg-[#0a0a0a] border border-white/10 w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl relative">
         {/* Progress Bar */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-white/5">
            <div
-             className="h-full bg-accent transition-all duration-500 ease-out"
+             className="h-full bg-accent shadow-[0_0_10px_rgba(209,166,96,0.5)] transition-all duration-500 ease-out"
              style={{ width: `${(step / 3) * 100}%` }}
            />
         </div>
 
-        <div className="p-10 space-y-8">
+        <div className="p-10">
            {step === 1 && (
              <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
                 <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6">
@@ -100,12 +101,12 @@ export function OnboardingWizard() {
                      placeholder="Nazwa Twojej firmy"
                      value={companyName}
                      onChange={(e) => setCompanyName(e.target.value)}
-                     className="h-14 text-lg bg-white/5 border-white/10"
+                     className="h-14 text-lg bg-white/5 border-white/10 focus:border-accent/50 transition-all"
                    />
                    <Button
                      onClick={handleStep1}
                      disabled={!companyName || loading}
-                     className="w-full h-14 text-lg font-black uppercase tracking-widest"
+                     className="w-full h-14 text-lg font-black uppercase tracking-widest bg-primary hover:bg-primary/80"
                    >
                      Dalej <ArrowRight className="ml-2 w-5 h-5" />
                    </Button>
@@ -127,19 +128,19 @@ export function OnboardingWizard() {
                      placeholder="Tytuł projektu / Klient"
                      value={dealTitle}
                      onChange={(e) => setDealTitle(e.target.value)}
-                     className="h-14 text-lg bg-white/5 border-white/10"
+                     className="h-14 text-lg bg-white/5 border-white/10 focus:border-accent/50 transition-all"
                    />
                    <Input
                      type="number"
                      placeholder="Szacowana wartość (PLN)"
                      value={dealValue}
                      onChange={(e) => setDealValue(e.target.value)}
-                     className="h-14 text-lg bg-white/5 border-white/10"
+                     className="h-14 text-lg bg-white/5 border-white/10 focus:border-accent/50 transition-all"
                    />
                    <Button
                      onClick={handleStep2}
                      disabled={!dealTitle || loading}
-                     className="w-full h-14 text-lg font-black uppercase tracking-widest"
+                     className="w-full h-14 text-lg font-black uppercase tracking-widest bg-primary hover:bg-primary/80"
                    >
                      Dodaj Deal <Sparkles className="ml-2 w-5 h-5" />
                    </Button>
@@ -148,26 +149,59 @@ export function OnboardingWizard() {
            )}
 
            {step === 3 && (
-             <div className="space-y-6 text-center animate-in zoom-in-95 duration-500">
-                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-green-500/50">
-                   <CheckCircle2 className="w-10 h-10 text-green-500" />
-                </div>
+             <div className="space-y-8 animate-in zoom-in-95 duration-500">
                 <div className="space-y-2">
-                   <h2 className="text-3xl font-black text-white tracking-tight">Gotowe do startu!</h2>
-                   <p className="text-gray-400">Twój workspace jest skonfigurowany. Możesz teraz zarządzać pipeline&apos;em i chronić swoją marżę.</p>
+                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-widest mb-2">
+                      <Zap className="w-3 h-3 fill-accent" /> Magic Moment
+                   </div>
+                   <h2 className="text-3xl font-black text-white tracking-tight">Jak działa magia?</h2>
+                   <p className="text-gray-400 text-sm">Twój deal jest już w pipeline. Oto co stanie się później:</p>
                 </div>
+
+                <div className="grid gap-4">
+                   <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                      <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+                         <MousePointerClick className="w-5 h-5 text-accent" />
+                      </div>
+                      <div>
+                         <p className="text-white font-bold text-sm">Konwersja 1-klinięciem</p>
+                         <p className="text-gray-500 text-xs">Gdy wygrasz deal, jednym przyciskiem zamienisz go w aktywny Projekt.</p>
+                      </div>
+                   </div>
+
+                   <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                      <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                         <BarChart3 className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                         <p className="text-white font-bold text-sm">Automatyczny Budżet</p>
+                         <p className="text-gray-500 text-xs">Wartość deala staje się Twoim limitem wydatków. System pilnuje go za Ciebie.</p>
+                      </div>
+                   </div>
+
+                   <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                      <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                         <ShieldCheck className="w-5 h-5 text-green-500" />
+                      </div>
+                      <div>
+                         <p className="text-white font-bold text-sm">Ochrona Marży</p>
+                         <p className="text-gray-500 text-xs">Loguj koszty i patrz jak Margin Bar zmienia kolor. System ostrzeże Cię przed stratą.</p>
+                      </div>
+                   </div>
+                </div>
+
                 <Button
                   onClick={handleFinish}
                   disabled={loading}
-                  className="w-full h-14 text-lg font-black uppercase tracking-widest bg-green-600 hover:bg-green-700 text-white"
+                  className="w-full h-14 text-lg font-black uppercase tracking-widest bg-accent hover:bg-accent/80 text-black shadow-[0_0_30px_rgba(209,166,96,0.2)]"
                 >
-                  Wejdź do Dashboardu <Zap className="ml-2 w-5 h-5 fill-white" />
+                  Zacznij Zarabiać <Zap className="ml-2 w-5 h-5 fill-black" />
                 </Button>
              </div>
            )}
 
            {error && (
-             <p className="text-red-500 text-sm font-bold text-center animate-pulse">{error}</p>
+             <p className="text-red-500 text-sm font-bold text-center mt-4 animate-pulse">{error}</p>
            )}
         </div>
       </div>
