@@ -16,6 +16,16 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Architektura ekosystemu Veles Digital
+
+Perun Core jest częścią szerszego ekosystemu narzędzi Veles Digital, zbudowanego zgodnie z architekturą "osobnych systemów" (loose coupling).
+
+### Kluczowe założenia:
+1.  **Niezależność systemów:** Perun Core (CRM & Margin Protection) oraz ROD System (Production Management) są w pełni autonomicznymi platformami. Każda posiada własną bazę danych, logikę biznesową i interfejs.
+2.  **Opcjonalna integracja:** Systemy mogą działać niezależnie, ale oferują głęboką integrację poprzez API i Webhooki.
+3.  **Kierunek danych:** ROD System przesyła dane o rzeczywistych kosztach produkcji do Perun Core, co pozwala na precyzyjne wyliczanie marży rzeczywistej względem planowanej.
+4.  **Uwierzytelnianie:** Połączenie następuje poprzez bezpieczny API Key generowany w ROD System i konfigurowany w panelu ustawień organizacji Perun Core.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

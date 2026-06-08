@@ -5,6 +5,8 @@ export interface Tenant {
   name: string;
   stripe_customer_id?: string | null;
   subscription_status: string;
+  rod_api_key?: string | null;
+  rod_connected_at?: string | null;
   created_at: string;
 }
 
@@ -48,5 +50,29 @@ export interface ProjectStage {
   budget_allocated_pln: number;
   cost_actual_pln: number;
   status: 'pending' | 'in_progress' | 'done';
+  created_at: string;
+}
+
+export interface Risk {
+  id: string;
+  project_id: string;
+  tenant_id: string;
+  title: string;
+  probability: 'low' | 'medium' | 'high';
+  impact: 'low' | 'medium' | 'high';
+  owner_id?: string | null;
+  status: 'active' | 'mitigated' | 'closed';
+  mitigation_plan?: string | null;
+  created_at: string;
+}
+
+export interface Alert {
+  id: string;
+  project_id?: string | null;
+  tenant_id: string;
+  type: 'margin_drop' | 'budget_overrun' | 'risk_detected';
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  message: string;
+  is_read: boolean;
   created_at: string;
 }

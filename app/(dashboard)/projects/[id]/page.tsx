@@ -1,10 +1,30 @@
-import { formatCurrency } from "@/lib/utils";
-import { ArrowLeft, BarChart3, Clock, DollarSign, LucideIcon } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { formatCurrency, cn } from "@/lib/utils";
+import {
+  ArrowLeft,
+  BarChart3,
+  Edit3,
+  ShieldAlert,
+  Plus
+} from "lucide-react";
 import Link from "next/link";
+import { getProjectWithMargin, updateStageActualCost } from "@/lib/actions/project.actions";
+import { getActiveAlerts } from "@/lib/actions/alert.actions";
+import { AICopilot } from "@/components/ai-copilot";
+import { ProjectStage, Alert, Risk } from "@/types";
 
-export default function ProjectDetailPage({ params }: { params: { id: string } }) {
+export default async function ProjectDetailPage({ params }: { params: { id: string } }) {
+  const project = await getProjectWithMargin(params.id);
+  const alerts = await getActiveAlerts(params.id) as Alert[];
+
+  const supabase = await createClient();
+  const { data: risks } = await supabase
+    .from('risks')
+    .select('*')
+    .eq('project_id', params.id);
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-6xl mx-auto">
       <div className="flex flex-col gap-4">
         <Link
           href="/projects"
@@ -14,96 +34,172 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         </Link>
         <div className="flex justify-between items-end">
           <div>
-            <h1 className="text-4xl font-bold text-white">Project Alpha - {params.id}</h1>
-            <p className="text-gray-400 mt-1">Horizon Ventures • Started June 1, 2026</p>
+            <h1 className="text-4xl font-black text-white tracking-tight">{project.name}</h1>
+            <p className="text-gray-400 mt-1 font-medium italic">
+              Started {project.start_date ? new Date(project.start_date).toLocaleDateString() : 'N/A'}
+            </p>
           </div>
-          <div className="bg-green-500/10 text-green-500 px-3 py-1 rounded-full text-sm font-medium border border-green-500/20">
-            On Track
+          <div className={cn(
+            "px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border shadow-lg",
+            project.status === 'active' ? "bg-green-500/10 text-green-500 border-green-500/20" : "bg-yellow-500/10 text-yellow-500 border-yellow-500/20"
+          )}>
+            {project.status === 'active' ? 'Active' : 'On Hold'}
           </div>
         </div>
       </div>
 
-      {/* Margin Bar */}
-      <div className="bg-white/5 border border-border rounded-2xl p-8 space-y-6">
-        <div className="flex justify-between items-end">
+      {/* Alerts Section */}
+      {alerts && alerts.length > 0 && (
+        <div className="space-y-3">
+          {alerts.map((alert) => (
+            <div
+              key={alert.id}
+              className={cn(
+                "p-4 rounded-xl border flex items-center gap-4 animate-pulse",
+                alert.severity === 'critical' ? "bg-red-500/10 border-red-500/50 text-red-500" :
+                alert.severity === 'high' ? "bg-accent/10 border-accent/50 text-accent" :
+                "bg-blue-500/10 border-blue-500/50 text-blue-500"
+              )}
+            >
+              <ShieldAlert className="w-6 h-6 shrink-0" />
+              <p className="font-bold text-sm tracking-tight">{alert.message}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Enhanced Margin Bar Section */}
+      <div className="bg-[#111111] border-2 border-border rounded-3xl p-10 space-y-8 shadow-2xl relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-8 opacity-5">
+           <BarChart3 className="w-32 h-32 text-accent" />
+        </div>
+
+        <div className="flex justify-between items-end relative z-10">
           <div>
-            <p className="text-sm text-gray-500 uppercase tracking-wider font-semibold">Project Margin</p>
-            <h2 className="text-3xl font-bold text-accent">73.3%</h2>
+            <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-1">Current Margin Protection</p>
+            <h2 className={cn(
+                "text-6xl font-black",
+                project.margin_percentage < 20 ? "text-red-500" : "text-accent"
+            )}>{project.margin_percentage}%</h2>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-500 uppercase tracking-wider font-semibold">Remaining Budget</p>
-            <p className="text-xl font-bold text-white">{formatCurrency(33000)}</p>
+            <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-1">Available Runway</p>
+            <p className="text-3xl font-black text-white">{formatCurrency(project.remaining_budget)}</p>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <div className="h-4 w-full bg-white/10 rounded-full overflow-hidden flex">
-            <div className="h-full bg-accent w-[26.7%]" title="Actual Cost" />
-            <div className="h-full bg-primary/40 w-[73.3%]" title="Remaining Margin" />
+        <div className="space-y-4 relative z-10">
+          <div className="h-8 w-full bg-white/5 rounded-2xl overflow-hidden flex border-2 border-white/10 p-1.5 shadow-inner">
+            <div
+              className={cn(
+                "h-full rounded-xl transition-all duration-1000 ease-out shadow-lg",
+                project.margin_percentage < 20 ? "bg-red-500" : "bg-accent"
+              )}
+              style={{ width: `${Math.min(100, (project.cost_actual_pln / project.budget_planned_pln) * 100)}%` }}
+            />
           </div>
-          <div className="flex justify-between text-xs font-medium uppercase tracking-tighter">
-            <span className="text-accent">Actual Cost: {formatCurrency(12000)}</span>
-            <span className="text-gray-500">Planned Budget: {formatCurrency(45000)}</span>
+          <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] px-2 text-gray-500">
+             <span>Actual Burn</span>
+             <span>Budget Cap</span>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <DetailCard icon={DollarSign} title="Total Invoiced" value={formatCurrency(15000)} />
-        <DetailCard icon={Clock} title="Time Elapsed" value="14 Days" />
-        <DetailCard icon={BarChart3} title="Forecasted Margin" value="70%" />
-      </div>
+      {/* AI Co-Pilot Section */}
+      <AICopilot projectId={params.id} />
 
-      <div className="space-y-4">
-        <h3 className="text-xl font-bold">Project Stages</h3>
-        <div className="grid grid-cols-1 gap-4">
-            {['Preparation', 'Execution', 'Closing'].map((stage, i) => (
-                <div key={stage} className="bg-white/5 border border-border rounded-xl p-6 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center font-bold text-gray-400">
-                            {i + 1}
-                        </div>
-                        <div>
-                            <h4 className="font-semibold">{stage}</h4>
-                            <p className="text-sm text-gray-500">{i === 0 ? 'Completed' : i === 1 ? 'In Progress' : 'Pending'}</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-8">
-                        <div className="text-right">
-                            <p className="text-xs text-gray-500 uppercase">Allocated</p>
-                            <p className="font-medium">{formatCurrency(15000)}</p>
-                        </div>
-                        <div className="text-right">
-                            <p className="text-xs text-gray-500 uppercase">Cost</p>
-                            <p className="font-medium text-white">{i === 0 ? formatCurrency(12000) : formatCurrency(0)}</p>
-                        </div>
-                        <button className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                            Update Cost
-                        </button>
-                    </div>
-                </div>
-            ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Stages Management */}
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black text-white flex items-center gap-3">
+             Project Stages
+          </h3>
+          <div className="space-y-4">
+              {(project.project_stages as ProjectStage[]).sort((a, b) => a.order_index - b.order_index).map((stage, i) => (
+                  <div key={stage.id} className="bg-card border border-border rounded-2xl p-6 flex items-center justify-between group hover:border-accent/30 transition-all shadow-md">
+                      <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center font-black text-accent border border-primary/30">
+                              {i + 1}
+                          </div>
+                          <div>
+                              <h4 className="font-bold text-white leading-tight">{stage.name}</h4>
+                              <p className="text-[10px] text-gray-500 font-black uppercase tracking-widest">{stage.status}</p>
+                          </div>
+                      </div>
+                      <div className="flex items-center gap-6">
+                          <div className="text-right">
+                              <p className="font-black text-white">{formatCurrency(stage.cost_actual_pln)}</p>
+                          </div>
+                          <form action={async (formData: FormData) => {
+                              'use server';
+                              const cost = parseFloat(formData.get('cost') as string);
+                              await updateStageActualCost(stage.id, cost);
+                          }} className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <input
+                                  type="number"
+                                  name="cost"
+                                  defaultValue={stage.cost_actual_pln}
+                                  className="w-20 bg-black border border-border rounded-lg px-2 py-1 text-xs outline-none"
+                              />
+                              <button type="submit" className="p-1.5 bg-primary/50 text-accent rounded-md hover:bg-primary transition-colors">
+                                  <Edit3 className="w-3.5 h-3.5" />
+                              </button>
+                          </form>
+                      </div>
+                  </div>
+              ))}
+          </div>
         </div>
-      </div>
-    </div>
-  );
-}
 
-interface DetailCardProps {
-  icon: LucideIcon;
-  title: string;
-  value: string | number;
-}
-
-function DetailCard({ icon: Icon, title, value }: DetailCardProps) {
-  return (
-    <div className="bg-white/5 border border-border rounded-xl p-6 flex items-center gap-4">
-      <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
-        <Icon className="text-primary w-6 h-6" />
-      </div>
-      <div>
-        <p className="text-sm text-gray-500 font-medium">{title}</p>
-        <p className="text-xl font-bold text-white">{value}</p>
+        {/* Risk Register */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-black text-white">Risk Register</h3>
+            <button className="text-accent hover:text-accent/80 transition-colors">
+               <Plus className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-md">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-white/5 border-b border-border">
+                  <th className="px-4 py-3 text-[10px] font-black uppercase tracking-widest text-gray-500">Risk</th>
+                  <th className="px-4 py-3 text-[10px] font-black uppercase tracking-widest text-gray-500">Impact</th>
+                  <th className="px-4 py-3 text-[10px] font-black uppercase tracking-widest text-gray-500">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border/50">
+                {risks && risks.length > 0 ? (risks as Risk[]).map((risk) => (
+                  <tr key={risk.id} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-4 py-4">
+                      <p className="font-bold text-sm text-white">{risk.title}</p>
+                      <p className="text-[10px] text-gray-500 italic mt-0.5">{risk.mitigation_plan}</p>
+                    </td>
+                    <td className="px-4 py-4">
+                      <span className={cn(
+                        "px-2 py-0.5 rounded text-[10px] font-black uppercase",
+                        risk.impact === 'high' ? "bg-red-500/20 text-red-500" :
+                        risk.impact === 'medium' ? "bg-accent/20 text-accent" :
+                        "bg-blue-500/20 text-blue-500"
+                      )}>
+                        {risk.impact}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4">
+                       <span className="text-xs text-gray-400 font-bold capitalize">{risk.status}</span>
+                    </td>
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan={3} className="px-4 py-8 text-center text-gray-500 italic text-sm">
+                       No risks identified yet.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
