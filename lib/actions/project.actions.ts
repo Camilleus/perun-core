@@ -4,6 +4,34 @@ import { createClient } from '@/lib/supabase/server';
 import { Risk, ActionResult } from '@/types';
 import { revalidatePath } from 'next/cache';
 
+export async function getProjectsWithMargin() {
+  const supabase = await createClient();
+
+  const { data: projects, error } = await supabase
+    .from('projects')
+    .select('*, project_stages(*)');
+
+  if (error) throw new Error(error.message);
+
+  return projects.map(project => {
+    const totalPlanned = Number(project.budget_planned_pln) || 0;
+    const totalActual = Number(project.cost_actual_pln) || 0;
+
+    // Calculate Burn %
+    const burnPct = totalPlanned > 0 ? (totalActual / totalPlanned) * 100 : 0;
+
+    // Calculate Margin %
+    const marginPercentage = totalPlanned > 0 ? ((totalPlanned - totalActual) / totalPlanned) * 100 : 0;
+
+    return {
+      ...project,
+      margin_percentage: parseFloat(marginPercentage.toFixed(1)),
+      burn_percentage: parseFloat(burnPct.toFixed(1)),
+      remaining_budget: totalPlanned - totalActual,
+    };
+  });
+}
+
 export async function getProjectWithMargin(projectId: string) {
   const supabase = await createClient();
 
