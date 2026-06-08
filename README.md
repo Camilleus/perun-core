@@ -704,10 +704,10 @@ Phase 3 — **MVP Polishing & Launch Readiness** — is complete. The system is 
 ### 💎 Key Features Delivered:
 - **Comprehensive Dashboard**: A high-level overview of workspace health, featuring metric cards (Active Projects, Total Margin, Projects at Risk), a visual project list with Margin Bars, and real-time Active Alerts.
 - **Onboarding Wizard**: A seamless 3-step experience for new users to set up their company, add their first deal, and get acquainted with the pipeline.
-- **Marketing Landing Page**: A conversion-focused homepage with a strong value proposition, "Magic Moment" flow explanation, and Early Bird pricing tiers.
+- **Marketing Landing Page**: A conversion-focused homepage with a strong value proposition, "Magic Moment" flow explanation, and Early Bird pricing tiers (79–99 PLN, limit 30 companies).
 - **Robust Multi-Tenancy**: Onboarding status is now tracked per profile, ensuring a personalized first-run experience for every user.
 
 ### 🛠️ Technical Implementation:
-- **Migrations**: `supabase/migrations/20240000000004_add_onboarded_to_profiles.sql` adding the onboarding state to users.
 - **Server Actions**: New actions in `lib/actions/tenant.ts` for handling tenant name updates and onboarding completion.
 - **Components**: `OnboardingWizard` for guided setup and a fully implemented Dashboard page.
+- **Conversion Polish**: Final copy and design adjustments on Landing Page and Dashboard for market readiness.

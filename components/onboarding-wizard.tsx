@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { updateTenantName, completeOnboarding } from '@/lib/actions/tenant';
 import { createDeal } from '@/lib/actions/deal.actions';
 import { Button, Input } from '@/components/ui';
@@ -15,6 +16,7 @@ import {
 import { cn } from '@/lib/utils';
 
 export function OnboardingWizard() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +49,8 @@ export function OnboardingWizard() {
       const formData = new FormData();
       formData.append('title', dealTitle);
       formData.append('value', dealValue);
+      // Explicitly ensuring value_planned_pln is captured as 'value' in the formData
+      // which is then parsed in createDeal action.
       await createDeal(formData);
       setStep(3);
     } catch (err) {
@@ -61,7 +65,7 @@ export function OnboardingWizard() {
     setLoading(true);
     try {
       await completeOnboarding();
-      window.location.reload();
+      router.push('/pipeline');
     } catch (err) {
       const error = err as Error;
       setError(error.message);

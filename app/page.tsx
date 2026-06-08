@@ -43,8 +43,8 @@ export default function HomePage() {
               <Sparkles className="w-3 h-3" /> Early Bird Access Now Open
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] text-white">
-              Chroni Twoją marżę <br className="hidden md:block" />
-              <span className="text-accent italic">zanim stracisz pieniądze.</span>
+              Chroń swoją marżę, <br className="hidden md:block" />
+              <span className="text-accent italic">zanim ją stracisz.</span>
             </h1>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 font-medium leading-relaxed">
               Perun Core to jedyny CRM stworzony dla firm projektowych, który przenosi budżet ze sprzedaży bezpośrednio do realizacji. Widzisz realną marżę w czasie rzeczywistym.
@@ -96,26 +96,27 @@ export default function HomePage() {
                   Od podpisu umowy do <br />
                   <span className="text-accent">bezpiecznego zysku.</span>
                 </h2>
+                <p className="text-gray-400 font-medium">Nasz &quot;Magic Moment&quot; to moment, w którym Twoja sprzedaż łączy się z realizacją.</p>
                 <div className="space-y-6">
                   <div className="flex gap-4">
                     <div className="w-8 h-8 rounded-full bg-accent text-primary flex items-center justify-center font-black shrink-0">1</div>
                     <div>
                       <h4 className="font-bold text-white uppercase text-sm tracking-widest mb-1">Pipeline Sprzedażowy</h4>
-                      <p className="text-gray-400 text-sm">Zarządzaj ofertami w Kanbanie. Każdy deal ma przypisaną szacowaną marżę.</p>
+                      <p className="text-gray-400 text-sm">Zarządzaj ofertami w intuicyjnym Kanbanie. Każdy deal to konkretna obietnica marży.</p>
                     </div>
                   </div>
                   <div className="flex gap-4">
                     <div className="w-8 h-8 rounded-full bg-accent text-primary flex items-center justify-center font-black shrink-0">2</div>
                     <div>
-                      <h4 className="font-bold text-white uppercase text-sm tracking-widest mb-1">Convert to Project</h4>
-                      <p className="text-gray-400 text-sm">Jeden klik zamienia wygrany deal w aktywny projekt. Budżet staje się nienaruszalnym limitem.</p>
+                      <h4 className="font-bold text-white uppercase text-sm tracking-widest mb-1">Konwersja na Projekt</h4>
+                      <p className="text-gray-400 text-sm">Jeden klik przenosi budżet ze sprzedaży wprost do realizacji. Nic nie umknie Twojej uwadze.</p>
                     </div>
                   </div>
                   <div className="flex gap-4">
                     <div className="w-8 h-8 rounded-full bg-accent text-primary flex items-center justify-center font-black shrink-0">3</div>
                     <div>
-                      <h4 className="font-bold text-white uppercase text-sm tracking-widest mb-1">Monitoring Marży</h4>
-                      <p className="text-gray-400 text-sm">Loguj koszty etap po etapie. System pokazuje &quot;Burn Rate&quot; i ostrzega przed przekroczeniami.</p>
+                      <h4 className="font-bold text-white uppercase text-sm tracking-widest mb-1">Pełna Kontrola Marży</h4>
+                      <p className="text-gray-400 text-sm">Loguj koszty w czasie rzeczywistym. Perun Core pilnuje, abyś nie wydał więcej, niż zarobiłeś.</p>
                     </div>
                   </div>
                 </div>
@@ -161,11 +162,11 @@ export default function HomePage() {
               <p className="text-gray-400 max-w-xl mx-auto font-medium">Zarezerwuj miejsce w programie wczesnego dostępu i otrzymaj dożywotnią gwarancję ceny.</p>
             </div>
             <div className="max-w-md mx-auto bg-[#0a0a0a] border-2 border-accent rounded-3xl p-10 relative shadow-2xl">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-primary text-xs font-black uppercase tracking-widest rounded-full">Najlepsza oferta</div>
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-primary text-xs font-black uppercase tracking-widest rounded-full">Limit 30 firm</div>
               <div className="space-y-6">
                 <div className="space-y-2">
                   <h3 className="text-2xl font-black uppercase tracking-widest">Early Bird</h3>
-                  <div className="text-5xl font-black text-white">79 PLN <span className="text-lg text-gray-500">/mc</span></div>
+                  <div className="text-5xl font-black text-white">79–99 PLN <span className="text-lg text-gray-500">/mc</span></div>
                   <p className="text-sm text-gray-500 font-bold">cena za użytkownika</p>
                 </div>
                 <ul className="text-left space-y-4 text-sm font-medium border-y border-white/5 py-8">
