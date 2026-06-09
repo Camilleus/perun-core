@@ -109,7 +109,18 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
   );
 }
 
-export function Button({ className, variant = "default", ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "default" | "outline" }) {
+import { Loader2 } from "lucide-react";
+
+export function Button({
+  className,
+  variant = "default",
+  loading = false,
+  children,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: "default" | "outline";
+  loading?: boolean;
+}) {
   const variants = {
     default: "bg-brand-navy text-brand-gold hover:bg-brand-navy/90 font-medium",
     outline: "border border-border bg-transparent hover:bg-brand-navy-lt/10 text-white font-medium"
@@ -117,12 +128,16 @@ export function Button({ className, variant = "default", ...props }: React.Butto
 
   return (
     <button
+      disabled={loading || props.disabled}
       className={cn(
         "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold disabled:pointer-events-none disabled:opacity-50",
         variants[variant],
         className
       )}
       {...props}
-    />
+    >
+      {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+      {children}
+    </button>
   );
 }

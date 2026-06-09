@@ -18,9 +18,9 @@ _Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
 
 ---
 
-## 🚀 Current Status: MVP Completed — Ready for Early Bird Launch & First Paying Customers (Phase 7)
+## 🚀 Current Status: MVP Completed — Fully Launch Ready for Early Bird (Phase 9)
 
-The MVP is now fully complete and ready for the first paying customers. This phase includes a polished onboarding experience, a comprehensive demo mode with realistic mock data, and integrated sales assets (Early Bird banners and countdowns) to drive conversion.
+The MVP is fully complete, tested, and ready for the Early Bird launch. This final technical phase ensured a seamless checkout-to-success flow, consistent premium branding, and a polished onboarding experience.
 
 ### 💎 Key Features Delivered:
 - **Core Margin Engine**: Real-time calculation of margin and burn-rate based on project costs.
@@ -724,17 +724,29 @@ STRIPE_WEBHOOK_SECRET=
 
 ### 🧪 How to Test the Full Flow
 
-1. **New User Signup**: Register a new account. You will be greeted by the **Onboarding Wizard**.
-2. **Onboarding**:
-   - Enter your company name.
-   - Create your first Deal (e.g., "Budowa Dachu").
-   - Experience the **Magic Moment** in Step 3 by clicking "Konwertuj na Projekt".
-3. **Explore Features**: After onboarding, go to **Settings** and click **"Uruchom demo"**. This will populate your account with complex demo data.
-4. **Analyze Margin**: Navigate to the **Demo** page or click on a project like "Demo: Modern Villa Fit-out".
-   - Check the **Margin Bar** (it will be red if costs > 90%).
-   - Review the **Risk Register** and **Active Alerts**.
-   - Read the **AI Co-Pilot Insight** at the bottom of the card.
-5. **Subscription**: Visit `/pricing` to see the Early Bird price lock offer.
+1. **Sign Up**: Register as a new user.
+2. **Onboarding Wizard**:
+   - Step 1: Set your company name.
+   - Step 2: Create your first Deal (input title and planned budget).
+   - Step 3: Click **"Konwertuj na Projekt"** to experience the Magic Moment (conversion animation).
+3. **Early Bird Activation**:
+   - Click the Early Bird banner or navigate to `/early-bird`.
+   - Click **"Zablokuj cenę"** to go through the Stripe Checkout (in test mode).
+   - After success, you will land on the `/success` page and your status will be updated.
+4. **Dashboard & Demo**:
+   - Go to **Settings** and click **"Uruchom demo"**.
+   - Navigate to the **Dashboard** to see the comparison between a healthy project and an at-risk project.
+   - Click on the at-risk project to see active **Alerts**, **Risk Register**, and **AI Co-Pilot** insights.
+
+### 💎 Early Bird Offer
+We are looking for the first 30 companies to join as **Founders**.
+- **Price**: 79–99 PLN / user / month (Price locked for 12 months).
+- **Limit**: Only 30 spots available (Founders only).
+- **Benefits**:
+  - Full access to all modules (CRM, Projects, AI Risk Co-Pilot).
+  - Priority support and concierge onboarding.
+  - Direct influence on the product roadmap.
+  - Exclusive "Founder" badge in the system.
 
 <div align="center">
 

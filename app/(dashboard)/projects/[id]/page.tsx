@@ -37,14 +37,14 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
           <div>
             <h1 className="text-4xl font-black text-white tracking-tight">{project.name}</h1>
             <p className="text-gray-400 mt-1 font-medium italic">
-              Started {project.start_date ? new Date(project.start_date).toLocaleDateString() : 'N/A'}
+              Rozpoczęto {project.start_date ? new Date(project.start_date).toLocaleDateString('pl-PL') : 'N/A'}
             </p>
           </div>
           <div className={cn(
-            "px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border shadow-lg",
+            "px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] border shadow-2xl",
             project.status === 'active' ? "bg-green-500/10 text-green-500 border-green-500/20" : "bg-yellow-500/10 text-yellow-500 border-yellow-500/20"
           )}>
-            {project.status === 'active' ? 'Active' : 'On Hold'}
+            {project.status === 'active' ? 'Aktywny' : 'Wstrzymany'}
           </div>
         </div>
       </div>
@@ -80,16 +80,16 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
       )}
 
       {/* Enhanced Margin Bar Section */}
-      <div className="bg-brand-navy-dk border-2 border-border rounded-3xl p-10 space-y-8 shadow-2xl relative overflow-hidden group">
-        <div className="absolute top-0 right-0 p-8 opacity-5">
-           <BarChart3 className="w-32 h-32 text-brand-gold" />
+      <div className="bg-brand-navy-dk border-2 border-white/5 rounded-[2.5rem] p-12 space-y-10 shadow-[0_0_80px_rgba(4,42,82,0.5)] relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:scale-110 transition-transform duration-1000">
+           <BarChart3 className="w-40 h-40 text-brand-gold" />
         </div>
 
         <div className="flex justify-between items-end relative z-10">
           <div>
-            <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-1">Current Margin Protection</p>
+            <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-2">Aktualna Ochrona Marży</p>
             <h2 className={cn(
-                "text-6xl font-black transition-colors duration-500",
+                "text-7xl font-black transition-colors duration-500 tracking-tighter",
                 project.burn_percentage > 100 ? "text-red-600" :
                 project.burn_percentage > 90 ? "text-red-500" :
                 project.burn_percentage > 75 ? "text-yellow-500" :
@@ -97,34 +97,34 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
             )}>{project.margin_percentage}%</h2>
           </div>
           <div className="text-right">
-            <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-1">Available Runway</p>
+            <p className="text-xs text-gray-500 uppercase font-black tracking-[0.2em] mb-2">Pozostały Budżet</p>
             <p className={cn(
-              "text-3xl font-black transition-colors duration-500",
+              "text-4xl font-black transition-colors duration-500 tracking-tighter",
               project.remaining_budget < 0 ? "text-red-500" : "text-white"
             )}>{formatCurrency(project.remaining_budget)}</p>
           </div>
         </div>
 
-        <div className="space-y-4 relative z-10">
-          <div className="h-10 w-full bg-white/5 rounded-2xl overflow-hidden flex border-2 border-white/10 p-1.5 shadow-inner">
+        <div className="space-y-5 relative z-10">
+          <div className="h-12 w-full bg-white/5 rounded-[1.25rem] overflow-hidden flex border-2 border-white/10 p-1.5 shadow-inner">
             <div
               className={cn(
-                "h-full rounded-xl transition-all duration-1000 ease-out shadow-lg relative",
+                "h-full rounded-lg transition-all duration-1000 ease-out shadow-lg relative",
                 project.burn_percentage > 100 ? "bg-red-600" :
-                project.burn_percentage > 90 ? "bg-red-500" :
-                project.burn_percentage > 75 ? "bg-yellow-500" :
-                "bg-brand-gold"
+                project.burn_percentage > 90 ? "bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.4)]" :
+                project.burn_percentage > 75 ? "bg-yellow-500 shadow-[0_0_20px_rgba(245,158,11,0.4)]" :
+                "bg-brand-gold shadow-[0_0_20px_rgba(209,166,96,0.4)]"
               )}
               style={{ width: `${Math.min(100, project.burn_percentage)}%` }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-shimmer" />
             </div>
           </div>
-          <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] px-2">
+          <div className="flex justify-between text-[11px] font-black uppercase tracking-[0.2em] px-2">
              <span className={cn(
                project.burn_percentage > 75 ? "text-red-400" : "text-gray-500"
-             )}>Actual Burn: {project.burn_percentage}%</span>
-             <span className="text-gray-500">Budget Cap: {formatCurrency(project.budget_planned_pln)}</span>
+             )}>Zużycie: {project.burn_percentage}%</span>
+             <span className="text-gray-500 tracking-widest">Limit: {formatCurrency(project.budget_planned_pln)}</span>
           </div>
         </div>
       </div>
@@ -135,8 +135,8 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Stages Management */}
         <div className="space-y-6">
-          <h3 className="text-2xl font-black text-white flex items-center gap-3">
-             Project Stages
+          <h3 className="text-2xl font-black text-white flex items-center gap-3 tracking-tight">
+             Etapy Projektu
           </h3>
           <div className="space-y-4">
               {(project.project_stages as ProjectStage[]).sort((a, b) => a.order_index - b.order_index).map((stage, i) => (
@@ -178,10 +178,10 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
         {/* Risk Register */}
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-black text-white">Risk Register</h3>
+            <h3 className="text-2xl font-black text-white tracking-tight">Rejestr Ryzyk</h3>
             <AddRiskDialog projectId={params.id} />
           </div>
-          <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-md">
+          <div className="bg-brand-navy-dk/50 border border-white/5 rounded-2xl overflow-hidden shadow-md">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-white/5 border-b border-border">

@@ -58,8 +58,8 @@ export async function createCheckoutSession(priceId: string): Promise<ActionResu
         tenantId: tenant.id,
       },
     },
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings/organization?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings/organization`,
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/early-bird`,
     metadata: {
       tenantId: tenant.id,
     },

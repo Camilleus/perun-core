@@ -1,10 +1,15 @@
 import { DemoTrigger } from "@/components/demo-trigger";
 
+import { Zap } from "lucide-react";
+
 export default function SettingsPage() {
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-12">
+    <div className="max-w-7xl mx-auto space-y-12 animate-in fade-in duration-500 pb-10">
       <div>
-        <h1 className="text-4xl font-black tracking-tighter text-white">Ustawienia</h1>
+        <h1 className="text-4xl font-black tracking-tighter text-white flex items-center gap-3">
+          <Zap className="w-8 h-8 text-brand-gold fill-brand-gold" />
+          Ustawienia
+        </h1>
         <p className="text-gray-500 font-medium text-lg mt-2">Zarządzaj swoją firmą i narzędziami Perun Core.</p>
       </div>
 
