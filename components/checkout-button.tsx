@@ -22,10 +22,10 @@ export function CheckoutButton({
     setLoading(true);
     try {
       const result = await createCheckoutSession(priceId);
-      if (result.success && result.data) {
+      if (result.success) {
         window.location.href = result.data;
       } else {
-        toast(result.error || "Wystąpił błąd podczas inicjowania płatności.", "error");
+        toast(result.error, "error");
         setLoading(false);
       }
     } catch (error) {

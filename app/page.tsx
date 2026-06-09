@@ -2,7 +2,9 @@ import { Button } from "@/components/ui";
 import { EarlyBirdBanner } from "@/components/early-bird-banner";
 import { TestimonialSection } from "@/components/testimonial-section";
 import { CheckoutButton } from "@/components/checkout-button";
+import { cn } from "@/lib/utils";
 import {
+  X,
   Zap,
   ShieldCheck,
   BarChart3,
@@ -57,8 +59,8 @@ export default function Home() {
                <Zap className="w-4 h-4 fill-brand-navy animate-pulse" /> Early Bird – 79–99 zł/mies (limit 30 firm) <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.85] mb-10 animate-in slide-in-from-bottom-6 duration-700">
-              Chronię Twoją marżę. <br/>
-              <span className="text-brand-gold drop-shadow-[0_0_30px_rgba(209,166,96,0.3)]">Zanim stracisz pieniądze.</span>
+              Perun Core — CRM, <br/>
+              <span className="text-brand-gold drop-shadow-[0_0_30px_rgba(209,166,96,0.3)] text-[0.8em]">który nie kończy się na sprzedaży. Chroni Twoją marżę.</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 font-medium leading-relaxed mb-12 max-w-2xl animate-in slide-in-from-bottom-8 duration-900">
               Project-First CRM dla firm, które zarabiają na projektach. <br className="hidden md:block"/>
@@ -102,9 +104,9 @@ export default function Home() {
                 <TrendingUp className="w-10 h-10 text-brand-navy" />
               </div>
               <div>
-                <h3 className="text-3xl font-black mb-4">1. New Deal</h3>
+                <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">1. New Deal</h3>
                 <p className="text-gray-500 leading-relaxed font-medium text-lg">
-                  Prowadzisz sprzedaż w pipeline. Każdy deal ma zaplanowany budżet i estymowane koszty.
+                  Wyceniasz deal w Pipeline. Już tutaj system pomaga Ci zaplanować bezpieczną marżę.
                 </p>
               </div>
             </div>
@@ -114,9 +116,9 @@ export default function Home() {
                 <Zap className="w-12 h-12 text-black fill-black" />
               </div>
               <div>
-                <h3 className="text-3xl font-black mb-4 text-brand-gold">2. Convert to Project</h3>
+                <h3 className="text-3xl font-black mb-4 text-brand-gold uppercase tracking-tighter">2. Convert to Project</h3>
                 <p className="text-gray-400 leading-relaxed font-bold text-lg">
-                  Magic Moment. Jedno kliknięcie zamienia deal w projekt. Budżet staje się nienaruszalnym limitem.
+                  Magic Moment. Jednym kliknięciem przenosisz obiecany budżet prosto do realizacji projektu.
                 </p>
               </div>
             </div>
@@ -126,9 +128,9 @@ export default function Home() {
                 <BarChart3 className="w-10 h-10 text-green-500" />
               </div>
               <div>
-                <h3 className="text-3xl font-black mb-4">3. Real-time Margin</h3>
+                <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter">3. Real-time Margin</h3>
                 <p className="text-gray-500 leading-relaxed font-medium text-lg">
-                  Logujesz koszty, a system natychmiast pokazuje margin bar. Wiesz, ile zarabiasz w każdej sekundzie.
+                  Koszty są logowane na bieżąco. Ty widzisz margin bar i wiesz, czy projekt zarabia.
                 </p>
               </div>
             </div>
@@ -209,6 +211,80 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Comparison Section */}
+      <section className="py-32 bg-brand-navy-dk/30 relative">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-24">
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-6">
+              Dlaczego <span className="text-brand-gold">Perun Core?</span>
+            </h2>
+            <p className="text-gray-500 font-medium max-w-2xl mx-auto text-xl">
+              Inne narzędzia kończą pracę tam, gdzie zaczynają się Twoje realne koszty.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                name: "Excel",
+                bad: "Bałagan, błędy w formułach i brak danych na żywo.",
+                good: "Centralna baza kosztów i automatyczne marże.",
+                icon: "📊"
+              },
+              {
+                name: "HubSpot / CRM",
+                bad: "Kończy się na sprzedaży. Nie wiesz, co dzieje się z kasą później.",
+                good: "Project-First: Pipeline płynnie przechodzi w realizację.",
+                icon: "🤝"
+              },
+              {
+                name: "ClickUp / Tasks",
+                bad: "Skupia się na taskach, ignorując finanse i marżę.",
+                good: "Każdy etap projektu ma swój budżet i realny koszt.",
+                icon: "✅"
+              },
+              {
+                name: "Perun Core",
+                bad: null,
+                good: "Jedyny system, który chroni marżę w czasie rzeczywistym.",
+                icon: "⚡",
+                featured: true
+              }
+            ].map((item, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "p-8 rounded-[2.5rem] border transition-all duration-500",
+                  item.featured
+                    ? "bg-brand-gold border-brand-gold shadow-[0_0_50px_rgba(209,166,96,0.2)] scale-105"
+                    : "bg-white/5 border-white/10 hover:border-brand-gold/30"
+                )}
+              >
+                <div className="text-4xl mb-6">{item.icon}</div>
+                <h3 className={cn("text-2xl font-black mb-6", item.featured ? "text-brand-navy" : "text-white")}>
+                  {item.name}
+                </h3>
+
+                <div className="space-y-4">
+                  {item.bad && (
+                    <div className="flex gap-3">
+                      <X className="w-5 h-5 text-red-500 shrink-0" />
+                      <p className="text-sm font-medium text-gray-500 italic">{item.bad}</p>
+                    </div>
+                  )}
+                  <div className="flex gap-3">
+                    <CheckCircle2 className={cn("w-5 h-5 shrink-0", item.featured ? "text-brand-navy" : "text-brand-gold")} />
+                    <p className={cn("text-sm font-bold", item.featured ? "text-brand-navy" : "text-gray-300")}>
+                      {item.good}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Jak zacząć Section */}
       <section className="py-32 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto px-6">
@@ -256,19 +332,19 @@ export default function Home() {
             <div className="text-brand-navy max-w-xl">
               <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-6 leading-none">
                 Zostało tylko <br/>
-                <span className="text-white drop-shadow-sm">12 z 30 miejsc</span>
+                <span className="text-white drop-shadow-sm">8 z 30 miejsc</span>
               </h2>
               <p className="text-lg font-bold opacity-80 mb-8">
-                Dołącz do grona Fundatorów Perun Core i zablokuj cenę 79-99 PLN na zawsze.
-                Gdy licznik osiągnie zero, cena wzrośnie do 149 PLN.
+                Dołącz do grona 30 pierwszych firm i zablokuj cenę 79-99 PLN / użytkownik / m-ce na 12 miesięcy.
+                To jedyny taki moment, żeby wpłynąć na rozwój narzędzia i chronić marżę najtaniej.
               </p>
               <div className="w-full h-4 bg-brand-navy/10 rounded-full overflow-hidden mb-4 p-1 border border-brand-navy/5">
-                 <div className="h-full bg-brand-navy rounded-full shadow-lg" style={{ width: '60%' }} />
+                 <div className="h-full bg-brand-navy rounded-full shadow-lg" style={{ width: '73%' }} />
               </div>
-              <p className="text-xs font-black uppercase tracking-widest opacity-60">Status: 18 firm już chroni swoją marżę</p>
+              <p className="text-xs font-black uppercase tracking-widest opacity-60">Status: 22 firmy już chronią swoją marżę</p>
             </div>
             <Link href="/early-bird" className="px-12 py-8 bg-brand-navy text-brand-gold rounded-[2rem] font-black uppercase tracking-[0.2em] text-lg hover:scale-105 transition-all shadow-2xl flex items-center gap-4 group">
-              Zajmij swoje miejsce <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              Zablokuj cenę teraz <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </Link>
           </div>
         </div>
@@ -331,12 +407,12 @@ export default function Home() {
                  <div className="space-y-6 mb-10 text-left bg-white/5 p-6 rounded-2xl border border-white/5">
                     <div className="flex justify-between text-xs font-bold text-gray-500">
                        <span>Dostępnych miejsc Early Bird</span>
-                       <span className="text-white">12 / 30</span>
+                       <span className="text-white">8 / 30</span>
                     </div>
                     <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                       <div className="w-[40%] h-full bg-brand-gold shadow-[0_0_15px_var(--shadow-navy)]" />
+                       <div className="w-[73%] h-full bg-brand-gold shadow-[0_0_15px_var(--shadow-navy)]" />
                     </div>
-                    <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 18 wolnych licencji z blokadą ceny na 12 miesięcy.</p>
+                    <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 8 wolnych licencji z blokadą ceny na 12 miesięcy.</p>
                  </div>
 
                  <CheckoutButton priceId="price_early_bird" className="block w-full py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all shadow-lg">
