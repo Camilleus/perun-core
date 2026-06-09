@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   BarChart3,
   Edit3,
-  ShieldAlert
 } from "lucide-react";
 import Link from "next/link";
 import { getProjectWithMargin, updateStageActualCost } from "@/lib/actions/project.actions";
@@ -12,6 +11,7 @@ import { getActiveAlerts } from "@/lib/actions/alert.actions";
 import { AICopilot } from "@/components/ai-copilot";
 import { AddRiskDialog } from "@/components/add-risk-dialog";
 import { RiskRow } from "@/components/risk-row";
+import { AlertBanner } from "@/components/alert-banner";
 import { ProjectStage, Alert, Risk } from "@/types";
 
 export default async function ProjectDetailPage({ params }: { params: { id: string } }) {
@@ -51,30 +51,9 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
 
       {/* Alerts Section */}
       {alerts && alerts.length > 0 && (
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {alerts.map((alert) => (
-            <div
-              key={alert.id}
-              className={cn(
-                "p-4 rounded-xl border-2 flex items-center gap-4",
-                alert.severity === 'critical' ? "bg-red-500/20 border-red-500 text-red-500 animate-pulse" :
-                alert.severity === 'high' ? "bg-brand-gold/20 border-brand-gold text-brand-gold" :
-                "bg-blue-500/20 border-blue-500 text-blue-500"
-              )}
-            >
-              <div className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
-                alert.severity === 'critical' ? "bg-red-500 text-white" :
-                alert.severity === 'high' ? "bg-brand-gold text-brand-navy" :
-                "bg-blue-500 text-white"
-              )}>
-                <ShieldAlert className="w-6 h-6" />
-              </div>
-              <div>
-                 <p className="font-black text-sm tracking-tight uppercase">{alert.type.replace('_', ' ')}</p>
-                 <p className="font-bold text-sm opacity-90">{alert.message}</p>
-              </div>
-            </div>
+            <AlertBanner key={alert.id} alert={alert} />
           ))}
         </div>
       )}

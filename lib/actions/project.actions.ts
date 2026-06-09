@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { Risk, ActionResult } from '@/types';
 import { revalidatePath } from 'next/cache';
+import { generateMarginAlerts } from './alert.actions';
 
 export async function getProjectsWithMargin() {
   const supabase = await createClient();
@@ -194,42 +195,3 @@ export async function updateRisk(riskId: string, updates: Partial<Risk>): Promis
   }
 }
 
-export async function generateMarginAlerts(projectId: string) {
-  const supabase = await createClient();
-
-  const project = await getProjectWithMargin(projectId);
-  const burnPct = project.burn_percentage;
-
-  // Clear existing margin/budget alerts for this project
-  await supabase
-    .from('alerts')
-    .delete()
-    .eq('project_id', projectId)
-    .in('type', ['margin_drop', 'budget_overrun']);
-
-  if (burnPct > 100) {
-    await supabase.from('alerts').insert({
-      tenant_id: project.tenant_id,
-      project_id: projectId,
-      type: 'budget_overrun',
-      severity: 'critical',
-      message: `BUDGET OVERRUN! Project has exceeded its planned budget. Current burn: ${burnPct.toFixed(1)}%.`,
-    });
-  } else if (burnPct > 90) {
-    await supabase.from('alerts').insert({
-      tenant_id: project.tenant_id,
-      project_id: projectId,
-      type: 'margin_drop',
-      severity: 'high',
-      message: `Critical alert: Project burn rate at ${burnPct.toFixed(1)}%. Margin is almost depleted.`,
-    });
-  } else if (burnPct >= 75) {
-    await supabase.from('alerts').insert({
-      tenant_id: project.tenant_id,
-      project_id: projectId,
-      type: 'margin_drop',
-      severity: 'medium',
-      message: `Warning: Project burn rate has reached ${burnPct.toFixed(1)}%. Monitor costs closely.`,
-    });
-  }
-}

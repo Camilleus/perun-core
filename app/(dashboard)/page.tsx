@@ -15,10 +15,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
+import { AlertBanner } from "@/components/alert-banner";
+import { Alert } from "@/types";
 
 export default async function DashboardPage() {
   const projects = await getProjectsWithMargin();
-  const alerts = await getActiveAlerts();
+  const alerts = await getActiveAlerts() as Alert[];
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -251,40 +253,8 @@ export default async function DashboardPage() {
            </h2>
 
            <div className="space-y-3">
-              {alerts.length > 0 ? alerts.slice(0, 5).map(alert => (
-                <div
-                  key={alert.id}
-                  className={cn(
-                    "p-4 rounded-xl border-l-4 space-y-1.5 bg-brand-navy-dk border-white/5 transition-all hover:bg-white/[0.05] relative overflow-hidden group",
-                    alert.severity === 'critical' ? "border-l-red-500 bg-red-500/[0.03]" :
-                    alert.severity === 'high' ? "border-l-brand-gold bg-brand-gold/[0.03]" :
-                    "border-l-blue-500 bg-blue-500/[0.03]"
-                  )}
-                >
-                   {alert.severity === 'critical' && (
-                     <div className="absolute top-0 right-0 w-16 h-16 bg-red-500/5 blur-xl rounded-full -mr-8 -mt-8" />
-                   )}
-                   <div className="flex items-center justify-between mb-1 relative z-10">
-                      <div className="flex items-center gap-2">
-                        {alert.severity === 'critical' ? (
-                          <AlertCircle className="w-3 h-3 text-red-500 animate-pulse" />
-                        ) : (
-                          <ShieldAlert className="w-3 h-3 text-brand-gold" />
-                        )}
-                        <p className={cn(
-                          "text-[9px] font-black uppercase tracking-widest",
-                          alert.severity === 'critical' ? "text-red-500" :
-                          alert.severity === 'high' ? "text-brand-gold" : "text-blue-500"
-                        )}>
-                          {alert.type.replace('_', ' ')}
-                        </p>
-                      </div>
-                      <span className="text-[8px] text-gray-600 font-black uppercase tracking-widest">
-                        {new Date(alert.created_at).toLocaleDateString('pl-PL')}
-                      </span>
-                   </div>
-                   <p className="text-sm font-bold text-white leading-snug relative z-10 group-hover:text-brand-gold transition-colors">{alert.message}</p>
-                </div>
+              {alerts.length > 0 ? alerts.slice(0, 10).map(alert => (
+                <AlertBanner key={alert.id} alert={alert} />
               )) : (
                 <div className="bg-brand-navy-dk border border-dashed border-white/10 rounded-2xl p-8 text-center">
                    <CheckCircle2 className="w-8 h-8 text-green-500/20 mx-auto mb-3" />
