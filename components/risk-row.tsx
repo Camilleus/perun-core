@@ -61,7 +61,7 @@ export function RiskRow({ risk }: { risk: Risk }) {
 
   if (isEditing) {
     return (
-      <tr className="bg-accent/5 transition-colors">
+      <tr className="bg-brand-gold/5 transition-colors">
         <td colSpan={3} className="px-4 py-4">
           <form action={handleUpdate} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -72,7 +72,7 @@ export function RiskRow({ risk }: { risk: Risk }) {
               <div className="grid grid-cols-3 gap-2">
                  <div className="space-y-1">
                     <label className="text-[10px] font-black uppercase text-gray-500">Prob.</label>
-                    <select name="probability" defaultValue={risk.probability} className="w-full bg-black border border-border rounded-md px-2 py-1.5 text-xs text-white">
+                    <select name="probability" defaultValue={risk.probability} className="w-full bg-brand-navy-dk border border-border rounded-md px-2 py-1.5 text-xs text-white">
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
@@ -80,7 +80,7 @@ export function RiskRow({ risk }: { risk: Risk }) {
                  </div>
                  <div className="space-y-1">
                     <label className="text-[10px] font-black uppercase text-gray-500">Impact</label>
-                    <select name="impact" defaultValue={risk.impact} className="w-full bg-black border border-border rounded-md px-2 py-1.5 text-xs text-white">
+                    <select name="impact" defaultValue={risk.impact} className="w-full bg-brand-navy-dk border border-border rounded-md px-2 py-1.5 text-xs text-white">
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
@@ -88,7 +88,7 @@ export function RiskRow({ risk }: { risk: Risk }) {
                  </div>
                  <div className="space-y-1">
                     <label className="text-[10px] font-black uppercase text-gray-500">Status</label>
-                    <select name="status" defaultValue={risk.status} className="w-full bg-black border border-border rounded-md px-2 py-1.5 text-xs text-white">
+                    <select name="status" defaultValue={risk.status} className="w-full bg-brand-navy-dk border border-border rounded-md px-2 py-1.5 text-xs text-white">
                         <option value="active">Active</option>
                         <option value="mitigated">Mitigated</option>
                         <option value="closed">Closed</option>
@@ -101,7 +101,7 @@ export function RiskRow({ risk }: { risk: Risk }) {
                 <textarea
                     name="mitigationPlan"
                     defaultValue={risk.mitigation_plan || ''}
-                    className="w-full bg-black border border-border rounded-md px-3 py-2 text-xs text-white min-h-[60px]"
+                    className="w-full bg-brand-navy-dk border border-border rounded-md px-3 py-2 text-xs text-white min-h-[60px]"
                 />
             </div>
             {error && <p className="text-red-500 text-[10px] font-bold italic">{error}</p>}
@@ -109,7 +109,7 @@ export function RiskRow({ risk }: { risk: Risk }) {
                <button type="button" onClick={() => setIsEditing(false)} className="p-1.5 text-gray-400 hover:text-white transition-colors">
                   <X className="w-4 h-4" />
                </button>
-               <button type="submit" disabled={loading} className="p-1.5 text-accent hover:text-accent/80 transition-colors">
+               <button type="submit" disabled={loading} className="p-1.5 text-brand-gold hover:text-brand-gold-dk/80 transition-colors">
                   {loading ? <Check className="w-4 h-4 animate-pulse" /> : <Check className="w-4 h-4" />}
                </button>
             </div>
@@ -130,7 +130,7 @@ export function RiskRow({ risk }: { risk: Risk }) {
             <span className={cn(
             "w-fit px-2 py-0.5 rounded text-[10px] font-black uppercase",
             risk.impact === 'high' ? "bg-red-500/20 text-red-500" :
-            risk.impact === 'medium' ? "bg-accent/20 text-accent" :
+            risk.impact === 'medium' ? "bg-brand-gold/20 text-brand-gold" :
             "bg-blue-500/20 text-blue-500"
             )}>
             Impact: {risk.impact}

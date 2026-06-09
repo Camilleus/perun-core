@@ -33,7 +33,7 @@ export default function ProjectsPage() {
         />
       </div>
 
-      <div className="bg-white/5 border border-border rounded-xl overflow-hidden">
+      <div className="bg-brand-navy-lt/10 border border-border rounded-xl overflow-hidden">
         <div className="p-6 border-b border-border flex items-center justify-between">
           <h2 className="text-xl font-semibold">Current Projects</h2>
           <button className="text-sm text-gray-400 hover:text-white transition-colors">View All</button>
@@ -42,8 +42,8 @@ export default function ProjectsPage() {
           {[1, 2, 3].map((i) => (
             <div key={i} className="p-6 flex items-center justify-between hover:bg-white/[0.02] transition-colors group cursor-pointer">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                  <LayoutDashboard className="text-primary w-6 h-6" />
+                <div className="w-12 h-12 bg-brand-navy/20 rounded-lg flex items-center justify-center">
+                  <LayoutDashboard className="text-brand-navy w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-lg">Project Alpha - {i}</h4>
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
                   <p className="font-medium text-white">{formatCurrency(12000)}</p>
                 </div>
                 <div className="w-48 h-2 bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-accent w-[26%]" />
+                  <div className="h-full bg-brand-gold w-[26%]" />
                 </div>
                 <button className="p-2 text-gray-500 hover:text-white opacity-0 group-hover:opacity-100 transition-all">
                   <MoreVertical className="w-5 h-5" />
@@ -85,7 +85,7 @@ interface StatsCardProps {
 
 function StatsCard({ title, value, trend, description, isNegative }: StatsCardProps) {
   return (
-    <div className="bg-white/5 border border-border rounded-xl p-6">
+    <div className="bg-brand-navy-lt/10 border border-border rounded-xl p-6">
       <div className="flex justify-between items-start mb-4">
         <p className="text-sm font-medium text-gray-400 uppercase tracking-wider">{title}</p>
         <TrendingUp className={cn("w-4 h-4", isNegative ? "text-red-500" : "text-green-500")} />

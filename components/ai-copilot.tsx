@@ -33,11 +33,11 @@ export function AICopilot({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="bg-[#063a69]/10 border border-[#063a69]/30 rounded-2xl p-6 space-y-4">
+    <div className="bg-brand-navy/10 border border-brand-navy/30 rounded-2xl p-6 space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-lg">
-            <Sparkles className="text-accent w-6 h-6" />
+          <div className="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center shadow-lg">
+            <Sparkles className="text-brand-gold w-6 h-6" />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Perun AI Co-Pilot</h3>
@@ -47,9 +47,9 @@ export function AICopilot({ projectId }: { projectId: string }) {
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="bg-primary text-accent px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-primary/80 transition-all disabled:opacity-50"
+          className="bg-brand-navy text-brand-gold px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-brand-navy/80 transition-all disabled:opacity-50"
         >
-          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4 fill-accent" />}
+          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4 fill-brand-gold" />}
           Analizuj Projekt
         </button>
       </div>
@@ -60,7 +60,7 @@ export function AICopilot({ projectId }: { projectId: string }) {
             <div className="flex items-center gap-2 mb-2">
               <div className={cn(
                 "w-3 h-3 rounded-full",
-                analysis.health_score > 70 ? "bg-green-500" : analysis.health_score > 40 ? "bg-accent" : "bg-red-500"
+                analysis.health_score > 70 ? "bg-green-500" : analysis.health_score > 40 ? "bg-brand-gold" : "bg-red-500"
               )} />
               <span className="text-sm font-bold uppercase tracking-wider text-gray-400">Project Health Score: {analysis.health_score}/100</span>
             </div>
@@ -81,13 +81,13 @@ export function AICopilot({ projectId }: { projectId: string }) {
               </ul>
             </div>
             <div className="space-y-2">
-              <h4 className="text-xs font-black uppercase tracking-widest text-accent flex items-center gap-2">
+              <h4 className="text-xs font-black uppercase tracking-widest text-brand-gold flex items-center gap-2">
                 <CheckCircle2 className="w-3 h-3" /> Rekomendacje
               </h4>
               <ul className="space-y-1">
                 {analysis.recommendations.map((r: string, i: number) => (
                   <li key={i} className="text-sm text-gray-300 flex items-start gap-2 italic">
-                    <span className="text-accent mt-1">•</span> {r}
+                    <span className="text-brand-gold mt-1">•</span> {r}
                   </li>
                 ))}
               </ul>

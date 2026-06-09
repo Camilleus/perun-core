@@ -11,27 +11,28 @@ _Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
 ![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-3FCF8E?logo=supabase&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-06B6D4?logo=tailwindcss&logoColor=white)
 ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-components-000000)
-![Status](https://img.shields.io/badge/status-Phase%203%20Complete-green)
+![Status](https://img.shields.io/badge/status-Phase%204.5%20Complete-green)
 ![License](https://img.shields.io/badge/license-proprietary-lightgrey)
 
 </div>
 
 ---
 
-## 🚀 Current Status (End of Phase 3)
+## 🚀 Current Status (End of Phase 4.5)
 
-Phase 3 — **MVP Polishing & Launch Readiness** — is complete. The system is now ready for Early Bird users.
+Phase 4.5 — **Billing & Early Bird Readiness** — is complete. The system is now ready to accept payments and handle Early Bird subscriptions.
 
 ### 💎 Key Features Delivered:
-- **Comprehensive Dashboard**: A high-level overview of workspace health, featuring metric cards (Active Projects, Total Margin, Projects at Risk), a visual project list with Margin Bars, and real-time Active Alerts.
-- **Onboarding Wizard**: A seamless 3-step experience for new users to set up their company, add their first deal, and get acquainted with the pipeline.
-- **Marketing Landing Page**: A conversion-focused homepage with a strong value proposition, "Magic Moment" flow explanation, and Early Bird pricing tiers (79–99 PLN, limit 30 companies).
-- **Robust Multi-Tenancy**: Onboarding status is now tracked per profile, ensuring a personalized first-run experience for every user.
+- **Stripe Integration**: Fully integrated Stripe Checkout for subscriptions with webhook support for real-time status synchronization.
+- **Early Bird Readiness**: Automated logic for tracking Early Bird eligibility per tenant and displaying targeted offers.
+- **Subscription Management**: New "Subscription" section in organization settings allowing users to upgrade, view their current plan, and manage billing.
+- **Pricing Page**: Dedicated pricing page showcasing Early Bird vs. Standard tiers with clear value propositions and limited-spot counters.
+- **Marketing & Conversion**: Updated landing page and dashboard with conversion-focused Early Bird elements.
 
 ### 🛠️ Technical Implementation:
-- **Server Actions**: New actions in `lib/actions/tenant.ts` for handling tenant name updates and onboarding completion.
-- **Components**: `OnboardingWizard` for guided setup and a fully implemented Dashboard page.
-- **Conversion Polish**: Final copy and design adjustments on Landing Page and Dashboard for market readiness.
+- **Database Schema**: New `subscriptions` table and `early_bird_until` column in `tenants` with RLS protection.
+- **Stripe Infrastructure**: Initialized Stripe client, server actions for checkout sessions, and a secure webhook endpoint.
+- **Types & Logic**: Expanded TypeScript interfaces and implemented server-side logic for subscription tracking.
 
 ---
 

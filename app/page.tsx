@@ -20,18 +20,18 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-accent selection:text-black font-sans">
+    <div className="min-h-screen bg-gradient-hero text-white selection:bg-brand-gold selection:text-black font-sans">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+      <nav className="fixed top-0 w-full z-50 bg-gradient-hero/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 group cursor-pointer">
-            <Zap className="w-8 h-8 text-accent fill-accent group-hover:scale-110 transition-transform" />
+            <Zap className="w-8 h-8 text-brand-gold fill-brand-gold group-hover:scale-110 transition-transform" />
             <span className="text-xl font-black tracking-tighter uppercase">Perun Core</span>
           </div>
           <div className="hidden md:flex items-center gap-10">
-            <a href="#magic-moment" className="text-sm font-bold text-gray-400 hover:text-accent transition-colors">Magic Moment</a>
-            <a href="#korzysci" className="text-sm font-bold text-gray-400 hover:text-accent transition-colors">Dla kogo</a>
-            <a href="#oferta" className="text-sm font-bold text-gray-400 hover:text-accent transition-colors">Cennik</a>
+            <a href="#magic-moment" className="text-sm font-bold text-gray-400 hover:text-brand-gold-dk transition-colors">Magic Moment</a>
+            <a href="#korzysci" className="text-sm font-bold text-gray-400 hover:text-brand-gold-dk transition-colors">Dla kogo</a>
+            <a href="#oferta" className="text-sm font-bold text-gray-400 hover:text-brand-gold-dk transition-colors">Cennik</a>
             <Link href="/login" className="px-6 py-2.5 rounded-full border border-white/10 text-sm font-black uppercase tracking-widest hover:bg-white/5 transition-all">
               Zaloguj
             </Link>
@@ -43,25 +43,25 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
-           <div className="absolute top-[10%] left-[5%] w-[50%] h-[50%] bg-primary/20 blur-[140px] rounded-full animate-pulse" />
-           <div className="absolute bottom-[5%] right-[5%] w-[40%] h-[40%] bg-accent/10 blur-[120px] rounded-full" />
+           <div className="absolute top-[10%] left-[5%] w-[50%] h-[50%] bg-brand-navy-lt/20 blur-[140px] rounded-full animate-pulse" />
+           <div className="absolute bottom-[5%] right-[5%] w-[40%] h-[40%] bg-brand-gold/10 blur-[120px] rounded-full" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-black uppercase tracking-widest mb-10 animate-in slide-in-from-bottom-4 duration-500">
-               <Zap className="w-4 h-4 fill-accent" /> Early Bird – 79–99 zł/mies (limit 30 firm)
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-xs font-black uppercase tracking-widest mb-10 animate-in slide-in-from-bottom-4 duration-500">
+               <Zap className="w-4 h-4 fill-brand-gold" /> Early Bird – 79–99 zł/mies (limit 30 firm)
             </div>
             <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.85] mb-10 animate-in slide-in-from-bottom-6 duration-700">
               Chronię Twoją marżę. <br/>
-              <span className="text-accent">Zanim stracisz pieniądze.</span>
+              <span className="text-brand-gold">Zanim stracisz pieniądze.</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 font-medium leading-relaxed mb-12 max-w-2xl animate-in slide-in-from-bottom-8 duration-900">
               Project-First CRM dla firm, które zarabiają na projektach. <br className="hidden md:block"/>
               Zobacz realną marżę w czasie rzeczywistym i zatrzymaj przecieki budżetu.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 animate-in slide-in-from-bottom-10 duration-1000">
-              <Link href="/login" className="px-10 py-6 bg-accent text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-[0_0_50px_rgba(209,166,96,0.35)] text-center flex items-center justify-center gap-2">
+              <Link href="/login" className="px-10 py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-[0_0_50px_var(--shadow-navy)] text-center flex items-center justify-center gap-2">
                 Uruchom darmowe demo <ArrowRight className="w-5 h-5" />
               </Link>
               <a href="#oferta" className="px-10 py-6 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all text-center flex items-center justify-center gap-2">
@@ -77,10 +77,10 @@ export default function Home() {
       </section>
 
       {/* The Magic Moment Section */}
-      <section id="magic-moment" className="py-32 bg-[#111111]/50 relative">
+      <section id="magic-moment" className="py-32 bg-gradient-hero/50 relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-24">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-primary-foreground text-[10px] font-black uppercase tracking-widest mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-navy-lt/20 border border-brand-navy-lt/30 text-white text-[10px] font-black uppercase tracking-widest mb-4">
                Flow produktu
             </div>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-6">The Magic Moment</h2>
@@ -91,11 +91,11 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 relative">
             {/* Connecting lines for desktop */}
-            <div className="hidden lg:block absolute top-1/2 left-[25%] right-[25%] h-px bg-gradient-to-r from-primary/50 via-accent/50 to-green-500/50 -translate-y-1/2 z-0" />
+            <div className="hidden lg:block absolute top-1/2 left-[25%] right-[25%] h-px bg-gradient-to-r from-primary/50 via-brand-gold/50 to-green-500/50 -translate-y-1/2 z-0" />
 
             <div className="relative z-10 space-y-6 text-center lg:text-left">
-              <div className="w-20 h-20 bg-primary/20 rounded-[2rem] flex items-center justify-center mx-auto lg:mx-0 border border-primary/30 shadow-[0_0_30px_rgba(6,58,105,0.2)]">
-                <TrendingUp className="w-10 h-10 text-primary" />
+              <div className="w-20 h-20 bg-brand-navy-lt/20 rounded-[2rem] flex items-center justify-center mx-auto lg:mx-0 border border-brand-navy-lt/30 shadow-[0_0_30px_var(--shadow-navy)]">
+                <TrendingUp className="w-10 h-10 text-brand-navy" />
               </div>
               <div>
                 <h3 className="text-3xl font-black mb-4">1. New Deal</h3>
@@ -106,11 +106,11 @@ export default function Home() {
             </div>
 
             <div className="relative z-10 space-y-6 text-center lg:text-left">
-              <div className="w-24 h-24 bg-accent rounded-[2.5rem] flex items-center justify-center mx-auto lg:mx-0 border-4 border-[#0a0a0a] shadow-[0_0_40px_rgba(209,166,96,0.4)] scale-110">
+              <div className="w-24 h-24 bg-brand-gold rounded-[2.5rem] flex items-center justify-center mx-auto lg:mx-0 border-4 border-brand-navy-dk shadow-[0_0_40px_var(--shadow-navy)] scale-110">
                 <Zap className="w-12 h-12 text-black fill-black" />
               </div>
               <div>
-                <h3 className="text-3xl font-black mb-4 text-accent">2. Convert to Project</h3>
+                <h3 className="text-3xl font-black mb-4 text-brand-gold">2. Convert to Project</h3>
                 <p className="text-gray-400 leading-relaxed font-bold text-lg">
                   Magic Moment. Jedno kliknięcie zamienia deal w projekt. Budżet staje się nienaruszalnym limitem.
                 </p>
@@ -118,7 +118,7 @@ export default function Home() {
             </div>
 
             <div className="relative z-10 space-y-6 text-center lg:text-left">
-              <div className="w-20 h-20 bg-green-500/20 rounded-[2rem] flex items-center justify-center mx-auto lg:mx-0 border border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.2)]">
+              <div className="w-20 h-20 bg-green-500/20 rounded-[2rem] flex items-center justify-center mx-auto lg:mx-0 border border-green-500/30 shadow-[0_0_30px_var(--color-success)]">
                 <BarChart3 className="w-10 h-10 text-green-500" />
               </div>
               <div>
@@ -139,7 +139,7 @@ export default function Home() {
             <div>
               <h2 className="text-5xl font-black tracking-tighter mb-12">
                 Dla kogo budujemy <br className="hidden md:block"/>
-                <span className="text-primary">Perun Core?</span>
+                <span className="text-brand-navy">Perun Core?</span>
               </h2>
 
               <div className="space-y-10">
@@ -175,8 +175,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-primary/10 to-accent/5 p-1 rounded-[3rem] border border-white/10 shadow-2xl relative">
-               <div className="bg-[#0a0a0a] rounded-[2.9rem] p-10">
+            <div className="bg-gradient-to-br from-brand-navy-lt/10 to-brand-gold/5 p-1 rounded-[3rem] border border-white/10 shadow-2xl relative">
+               <div className="bg-gradient-hero rounded-[2.9rem] p-10">
                   <div className="inline-flex items-center gap-2 text-red-500 text-xs font-black uppercase tracking-widest mb-6">
                      <ShieldAlert className="w-4 h-4" /> Problemy, które rozwiązujemy
                   </div>
@@ -198,8 +198,8 @@ export default function Home() {
                </div>
 
                {/* Decorative elements */}
-               <div className="absolute -top-10 -right-10 w-32 h-32 bg-accent/20 blur-[60px] rounded-full" />
-               <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/20 blur-[60px] rounded-full" />
+               <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-gold/20 blur-[60px] rounded-full" />
+               <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-navy-lt/20 blur-[60px] rounded-full" />
             </div>
           </div>
         </div>
@@ -208,17 +208,17 @@ export default function Home() {
       {/* Early Bird / Offer Section */}
       <section id="oferta" className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-accent/30 rounded-[4rem] p-12 lg:p-20 overflow-hidden shadow-[0_0_100px_rgba(209,166,96,0.1)]">
-            <div className="absolute top-0 right-0 w-[50%] h-[100%] bg-accent/5 blur-[120px] rounded-full translate-x-1/2" />
+          <div className="relative bg-gradient-to-br from-brand-navy-dk to-brand-navy-dk border border-brand-gold/30 rounded-[4rem] p-12 lg:p-20 overflow-hidden shadow-[0_0_100px_var(--shadow-navy)]">
+            <div className="absolute top-0 right-0 w-[50%] h-[100%] bg-brand-gold/5 blur-[120px] rounded-full translate-x-1/2" />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
               <div>
-                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-black uppercase tracking-widest mb-8">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-[10px] font-black uppercase tracking-widest mb-8">
                    <Clock className="w-3 h-3" /> Oferta ograniczona czasowo
                  </div>
                  <h2 className="text-6xl font-black tracking-tighter mb-8 leading-[0.9]">
                     Dołącz jako <br/>
-                    <span className="text-accent">Early Bird.</span>
+                    <span className="text-brand-gold">Early Bird.</span>
                  </h2>
                  <p className="text-gray-400 font-medium text-xl leading-relaxed mb-10">
                     Szukamy 30 firm, które chcą realnie wpłynąć na rozwój narzędzia i zyskać dożywotnią gwarancję najniższej ceny.
@@ -234,15 +234,15 @@ export default function Home() {
                      "Wsparcie importu danych"
                    ].map((item, i) => (
                      <div key={i} className="flex items-center gap-3">
-                       <CheckCircle2 className="w-5 h-5 text-accent" />
+                       <CheckCircle2 className="w-5 h-5 text-brand-gold" />
                        <span className="text-sm font-bold text-gray-300">{item}</span>
                      </div>
                    ))}
                  </div>
               </div>
 
-              <div className="bg-[#0a0a0a]/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-10 text-center relative">
-                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-accent text-black px-6 py-2 rounded-full font-black uppercase tracking-widest text-xs">
+              <div className="bg-gradient-hero/50 backdrop-blur-xl border border-white/10 rounded-[3rem] p-10 text-center relative">
+                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-brand-gold text-black px-6 py-2 rounded-full font-black uppercase tracking-widest text-xs">
                     Najlepszy moment na start
                  </div>
 
@@ -251,7 +251,7 @@ export default function Home() {
                     <span className="text-8xl font-black tracking-tighter">79</span>
                     <span className="text-3xl font-black text-gray-500 mb-2"> PLN</span>
                  </div>
-                 <p className="text-accent font-bold text-lg mb-10">za użytkownika / m-ce</p>
+                 <p className="text-brand-gold font-bold text-lg mb-10">za użytkownika / m-ce</p>
 
                  <div className="space-y-6 mb-10 text-left bg-white/5 p-6 rounded-2xl border border-white/5">
                     <div className="flex justify-between text-xs font-bold text-gray-500">
@@ -259,12 +259,12 @@ export default function Home() {
                        <span className="text-white">12 / 30</span>
                     </div>
                     <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                       <div className="w-[40%] h-full bg-accent shadow-[0_0_15px_rgba(209,166,96,0.5)]" />
+                       <div className="w-[40%] h-full bg-brand-gold shadow-[0_0_15px_var(--shadow-navy)]" />
                     </div>
                     <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 18 wolnych licencji w tej cenie.</p>
                  </div>
 
-                 <Link href="/login" className="block w-full py-6 bg-accent text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all shadow-lg">
+                 <Link href="/login?plan=early-bird" className="block w-full py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all shadow-lg">
                    Zajmij miejsce w kolejce
                  </Link>
                  <p className="text-[10px] text-gray-600 mt-6 font-bold uppercase tracking-widest tracking-widest">Bez kart kredytowej na start</p>
@@ -275,12 +275,12 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 border-t border-white/5 bg-[#0a0a0a]">
+      <footer className="py-20 border-t border-white/5 bg-gradient-hero">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12 mb-20">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <Zap className="w-8 h-8 text-accent fill-accent" />
+                <Zap className="w-8 h-8 text-brand-gold fill-brand-gold" />
                 <span className="text-2xl font-black tracking-tighter uppercase">Perun Core</span>
               </div>
               <p className="text-gray-500 max-w-xs font-medium">
@@ -292,16 +292,16 @@ export default function Home() {
               <div className="space-y-6">
                 <h5 className="font-black uppercase tracking-widest text-[10px] text-gray-400">Produkt</h5>
                 <ul className="space-y-4 text-sm font-bold text-gray-600">
-                  <li><a href="#magic-moment" className="hover:text-accent transition-colors">Jak to działa</a></li>
-                  <li><a href="#korzysci" className="hover:text-accent transition-colors">Korzyści</a></li>
-                  <li><a href="#oferta" className="hover:text-accent transition-colors">Cennik</a></li>
+                  <li><a href="#magic-moment" className="hover:text-brand-gold-dk transition-colors">Jak to działa</a></li>
+                  <li><a href="#korzysci" className="hover:text-brand-gold-dk transition-colors">Korzyści</a></li>
+                  <li><a href="#oferta" className="hover:text-brand-gold-dk transition-colors">Cennik</a></li>
                 </ul>
               </div>
               <div className="space-y-6">
                 <h5 className="font-black uppercase tracking-widest text-[10px] text-gray-400">Legal</h5>
                 <ul className="space-y-4 text-sm font-bold text-gray-600">
-                  <li><a href="#" className="hover:text-accent transition-colors">Polityka prywatności</a></li>
-                  <li><a href="#" className="hover:text-accent transition-colors">Regulamin</a></li>
+                  <li><a href="#" className="hover:text-brand-gold-dk transition-colors">Polityka prywatności</a></li>
+                  <li><a href="#" className="hover:text-brand-gold-dk transition-colors">Regulamin</a></li>
                 </ul>
               </div>
             </div>
@@ -310,10 +310,10 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-white/5 pt-12">
             <p className="text-gray-600 text-xs font-bold">© 2024 Veles Digital. Built with precision in Warsaw.</p>
             <div className="flex gap-6">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 hover:text-accent hover:border-accent/50 transition-all">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 hover:text-brand-gold-dk hover:border-brand-gold-dk/50 transition-all">
                  <Users className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 hover:text-accent hover:border-accent/50 transition-all">
+              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 hover:text-brand-gold-dk hover:border-brand-gold-dk/50 transition-all">
                  <ShieldAlert className="w-5 h-5" />
               </a>
             </div>

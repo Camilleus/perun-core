@@ -41,14 +41,14 @@ export default async function PipelinePage() {
           <h1 className="text-3xl font-bold tracking-tight text-white">Sales Pipeline</h1>
           <p className="text-gray-400 mt-1">Manage your active deals and convert them into projects.</p>
         </div>
-        <button className="bg-primary text-accent px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center gap-2">
+        <button className="bg-brand-navy text-brand-gold px-4 py-2 rounded-lg font-medium hover:bg-brand-navy/90 transition-colors flex items-center gap-2">
           <Plus className="w-4 h-4" /> New Deal
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {stages.map((stage) => (
-          <div key={stage.id} className="bg-white/5 rounded-xl p-4 border border-border min-h-[600px] flex flex-col gap-4">
+          <div key={stage.id} className="bg-brand-navy-lt/10 rounded-xl p-4 border border-border min-h-[600px] flex flex-col gap-4">
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-semibold text-sm uppercase tracking-wider text-gray-400">{stage.name}</h3>
               <span className="text-xs bg-white/10 px-2.5 py-1 rounded-full text-gray-300 font-medium">
@@ -76,9 +76,9 @@ export default async function PipelinePage() {
 
 function DealCard({ deal }: { deal: Deal }) {
   return (
-    <div className="bg-card border border-border rounded-xl p-4 hover:border-accent/50 transition-all group cursor-pointer shadow-sm">
+    <div className="bg-card border border-border rounded-xl p-4 hover:border-brand-gold-dk/50 transition-all group cursor-pointer shadow-sm">
       <div className="flex justify-between items-start mb-3">
-        <h4 className="font-semibold text-white group-hover:text-accent transition-colors leading-tight">
+        <h4 className="font-semibold text-white group-hover:text-brand-gold-dk transition-colors leading-tight">
           {deal.title}
         </h4>
         <button className="text-gray-500 hover:text-white transition-colors">
@@ -98,7 +98,7 @@ function DealCard({ deal }: { deal: Deal }) {
       </div>
 
       <div className="flex items-center justify-between pt-3 border-t border-border/50">
-        <span className="font-bold text-accent">
+        <span className="font-bold text-brand-gold">
           {formatCurrency(deal.value_planned_pln)}
         </span>
 
@@ -109,7 +109,7 @@ function DealCard({ deal }: { deal: Deal }) {
           }}>
             <button
               type="submit"
-              className="bg-accent text-primary p-1.5 rounded-md hover:bg-accent/80 transition-colors flex items-center gap-1 text-[10px] font-bold uppercase tracking-tighter"
+              className="bg-brand-gold text-brand-navy p-1.5 rounded-md hover:bg-brand-gold-dk/80 transition-colors flex items-center gap-1 text-[10px] font-bold uppercase tracking-tighter"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               Convert
