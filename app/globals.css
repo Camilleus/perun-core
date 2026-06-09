@@ -1,31 +1,84 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #063a69;
-  --color-accent: #d1a660;
-  --color-background: #0a0a0a;
-  --color-foreground: #ededed;
+  /* ── Core brand ─────────────────────────────── */
+  --color-brand-navy:    #063a69;
+  --color-brand-navy-dk: #042a52;
+  --color-brand-navy-md: #0a4d8c;
+  --color-brand-navy-lt: #1565a8;
 
-  --color-sidebar: #111111;
-  --color-card: #161616;
-  --color-border: #262626;
-}
+  --color-brand-gold:    #d1a660;
+  --color-brand-gold-dk: #b8924f;
+  --color-brand-gold-lt: #e2bc80;
 
-:root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary: #063a69;
-  --accent: #d1a660;
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* ── Legacy/Semantic (for compatibility) ──────── */
+  --color-primary: var(--color-brand-navy);
+  --color-accent: var(--color-brand-gold);
 }
 
 @layer base {
+  :root {
+    /* ── Core brand ─────────────────────────────── */
+    --color-navy:    #063a69;
+    --color-navy-dk: #042a52;
+    --color-navy-md: #0a4d8c;
+    --color-navy-lt: #1565a8;
+
+    --color-gold:    #d1a660;
+    --color-gold-dk: #b8924f;
+    --color-gold-lt: #e2bc80;
+
+    /* ── Semantic surface tokens ────────────────── */
+    --bg-brand-navy:   var(--color-navy);
+    --bg-secondary: var(--color-navy-dk);
+    --bg-card:      var(--color-navy-md);
+    --bg-hover:     var(--color-navy-lt);
+
+    /* ── Semantic accent tokens ─────────────────── */
+    --accent:       var(--color-gold);
+    --accent-hover: var(--color-gold-dk);
+    --accent-soft:  var(--color-gold-lt);
+
+    /* ── Text ────────────────────────────────────── */
+    --text-brand-navy:   #ffffff;
+    --text-secondary: #c8d8ea;
+    --text-muted:     #7a9ab8;
+    --text-on-accent: #063a69;
+
+    /* ── Borders ─────────────────────────────────── */
+    --border:        rgba(209, 166, 96, 0.20);
+    --border-strong: rgba(209, 166, 96, 0.45);
+
+    /* ── Shadows ─────────────────────────────────── */
+    --shadow-navy:   rgba(4, 42, 82, 0.35);
+    --shadow-gold:   rgba(209, 166, 96, 0.35);
+    --shadow-danger: rgba(239, 68, 68, 0.1);
+
+    /* ── Status ──────────────────────────────────── */
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger:  #ef4444;
+
+    /* ── Gradients ───────────────────────────────── */
+    --gradient-hero:   radial-gradient(ellipse at top left, var(--color-navy-md) 0%, var(--color-navy-dk) 70%);
+    --gradient-card:   linear-gradient(135deg, var(--color-navy-md), var(--color-navy));
+    --gradient-accent: linear-gradient(90deg, var(--color-gold-dk), var(--color-gold));
+
+    /* Legacy variables for compatibility */
+    --background: var(--bg-brand-navy);
+    --foreground: var(--text-brand-navy);
+    --primary: var(--color-navy);
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-brand-navy);
+    color: var(--text-brand-navy);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+
   * {
-    border-color: #262626;
+    border-color: var(--border);
   }
 }

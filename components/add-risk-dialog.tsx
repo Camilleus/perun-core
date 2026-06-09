@@ -32,7 +32,7 @@ export function AddRiskDialog({ projectId }: { projectId: string }) {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="text-accent hover:text-accent/80 transition-colors"
+        className="text-brand-gold hover:text-brand-gold-dk/80 transition-colors"
       >
         <Plus className="w-6 h-6" />
       </button>
@@ -40,8 +40,8 @@ export function AddRiskDialog({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 animate-in fade-in duration-200">
-      <div className="bg-[#111111] border border-border w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-brand-navy-dk/80 p-4 animate-in fade-in duration-200">
+      <div className="bg-brand-navy-dk border border-border w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-6">
         <div className="flex justify-between items-center">
           <h3 className="text-xl font-black text-white">Add New Risk</h3>
           <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-white transition-colors">
@@ -62,7 +62,7 @@ export function AddRiskDialog({ projectId }: { projectId: string }) {
               <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Probability</label>
               <select
                 name="probability"
-                className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="flex h-10 w-full rounded-md border border-border bg-brand-navy-dk px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -73,7 +73,7 @@ export function AddRiskDialog({ projectId }: { projectId: string }) {
               <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Impact</label>
               <select
                 name="impact"
-                className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="flex h-10 w-full rounded-md border border-border bg-brand-navy-dk px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -87,7 +87,7 @@ export function AddRiskDialog({ projectId }: { projectId: string }) {
             <textarea
               name="mitigationPlan"
               placeholder="How will we prevent or handle this?"
-              className="flex min-h-[100px] w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="flex min-h-[100px] w-full rounded-md border border-border bg-brand-navy-dk px-3 py-2 text-sm text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
             />
           </div>
 

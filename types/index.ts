@@ -7,7 +7,23 @@ export interface Tenant {
   subscription_status: string;
   rod_api_key?: string | null;
   rod_connected_at?: string | null;
+  early_bird_until?: string | null;
   created_at: string;
+}
+
+export interface Subscription {
+  id: string;
+  tenant_id: string;
+  stripe_subscription_id: string | null;
+  status: string | null;
+  price_id: string | null;
+  quantity: number;
+  cancel_at_period_end: boolean;
+  current_period_start: string | null;
+  current_period_end: string | null;
+  ended_at: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Profile {

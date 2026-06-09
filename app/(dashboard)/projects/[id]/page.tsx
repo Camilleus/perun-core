@@ -58,14 +58,14 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
               className={cn(
                 "p-4 rounded-xl border-2 flex items-center gap-4",
                 alert.severity === 'critical' ? "bg-red-500/20 border-red-500 text-red-500 animate-pulse" :
-                alert.severity === 'high' ? "bg-accent/20 border-accent text-accent" :
+                alert.severity === 'high' ? "bg-brand-gold/20 border-brand-gold text-brand-gold" :
                 "bg-blue-500/20 border-blue-500 text-blue-500"
               )}
             >
               <div className={cn(
                 "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
                 alert.severity === 'critical' ? "bg-red-500 text-white" :
-                alert.severity === 'high' ? "bg-accent text-primary" :
+                alert.severity === 'high' ? "bg-brand-gold text-brand-navy" :
                 "bg-blue-500 text-white"
               )}>
                 <ShieldAlert className="w-6 h-6" />
@@ -80,9 +80,9 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
       )}
 
       {/* Enhanced Margin Bar Section */}
-      <div className="bg-[#111111] border-2 border-border rounded-3xl p-10 space-y-8 shadow-2xl relative overflow-hidden group">
+      <div className="bg-brand-navy-dk border-2 border-border rounded-3xl p-10 space-y-8 shadow-2xl relative overflow-hidden group">
         <div className="absolute top-0 right-0 p-8 opacity-5">
-           <BarChart3 className="w-32 h-32 text-accent" />
+           <BarChart3 className="w-32 h-32 text-brand-gold" />
         </div>
 
         <div className="flex justify-between items-end relative z-10">
@@ -93,7 +93,7 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
                 project.burn_percentage > 100 ? "text-red-600" :
                 project.burn_percentage > 90 ? "text-red-500" :
                 project.burn_percentage > 75 ? "text-yellow-500" :
-                "text-accent"
+                "text-brand-gold"
             )}>{project.margin_percentage}%</h2>
           </div>
           <div className="text-right">
@@ -113,7 +113,7 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
                 project.burn_percentage > 100 ? "bg-red-600" :
                 project.burn_percentage > 90 ? "bg-red-500" :
                 project.burn_percentage > 75 ? "bg-yellow-500" :
-                "bg-accent"
+                "bg-brand-gold"
               )}
               style={{ width: `${Math.min(100, project.burn_percentage)}%` }}
             >
@@ -140,9 +140,9 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
           </h3>
           <div className="space-y-4">
               {(project.project_stages as ProjectStage[]).sort((a, b) => a.order_index - b.order_index).map((stage, i) => (
-                  <div key={stage.id} className="bg-card border border-border rounded-2xl p-6 flex items-center justify-between group hover:border-accent/30 transition-all shadow-md">
+                  <div key={stage.id} className="bg-card border border-border rounded-2xl p-6 flex items-center justify-between group hover:border-brand-gold-dk/30 transition-all shadow-md">
                       <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center font-black text-accent border border-primary/30">
+                          <div className="w-10 h-10 rounded-xl bg-brand-navy/20 flex items-center justify-center font-black text-brand-gold border border-brand-navy/30">
                               {i + 1}
                           </div>
                           <div>
@@ -163,9 +163,9 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
                                   type="number"
                                   name="cost"
                                   defaultValue={stage.cost_actual_pln}
-                                  className="w-20 bg-black border border-border rounded-lg px-2 py-1 text-xs outline-none"
+                                  className="w-20 bg-brand-navy-dk border border-border rounded-lg px-2 py-1 text-xs outline-none"
                               />
-                              <button type="submit" className="p-1.5 bg-primary/50 text-accent rounded-md hover:bg-primary transition-colors">
+                              <button type="submit" className="p-1.5 bg-brand-navy/50 text-brand-gold rounded-md hover:bg-brand-navy transition-colors">
                                   <Edit3 className="w-3.5 h-3.5" />
                               </button>
                           </form>
