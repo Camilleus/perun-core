@@ -55,7 +55,9 @@ export default async function DashboardPage() {
             <Zap className="w-8 h-8 text-brand-gold fill-brand-gold" />
             Dashboard
           </h1>
-          <p className="text-gray-400 mt-1">Podsumowanie Twojego workspace&apos;u i ochrony marży.</p>
+          <p className="text-brand-gold/80 font-bold mt-1 text-sm uppercase tracking-wider">
+            Perun Core pilnuje, żeby marża, którą sprzedałeś, nie zniknęła podczas realizacji.
+          </p>
         </div>
         <div className="flex items-center gap-3">
            <Link
@@ -199,16 +201,16 @@ export default async function DashboardPage() {
 
                    <div className="space-y-3">
                       <div className="flex justify-between items-end text-[10px] font-black uppercase tracking-widest">
-                        <span className="text-gray-400">Zużycie środków (Burn-rate)</span>
+                        <span className="text-gray-400">Ochrona marży (Burn-rate)</span>
                         <div className="flex items-baseline gap-1">
                            <span className={cn(
-                             "text-lg leading-none",
+                             "text-2xl leading-none font-black tracking-tighter",
                              project.burn_percentage > 90 ? "text-red-500" :
                              project.burn_percentage > 75 ? "text-yellow-500" : "text-brand-gold"
                            )}>{project.burn_percentage}%</span>
                         </div>
                       </div>
-                      <div className="h-3 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 p-0.5">
+                      <div className="h-5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 p-1">
                          <div
                            className={cn(
                              "h-full rounded-full transition-all duration-1000 ease-out relative",

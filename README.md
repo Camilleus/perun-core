@@ -4,7 +4,7 @@
 
 **The project-first CRM that protects your margin in real time.**
 
-_Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
+_Perun Core to jedyny CRM, który nie kończy się na sprzedaży. Pilnuje, żeby marża, którą sprzedałeś, nie zniknęła podczas realizacji._
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
@@ -18,16 +18,17 @@ _Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
 
 ---
 
-## 🚀 Current Status: MVP Completed — Fully Launch Ready for Early Bird (Phase 9)
+## 🚀 Current Status: Phase 8 — Final Sales Polish + Conversion Boost
 
-The MVP is fully complete, tested, and ready for the Early Bird launch. This final technical phase ensured a seamless checkout-to-success flow, consistent premium branding, and a polished onboarding experience.
+The system is now fully optimized for conversion with a high-impact sales landing page and a polished dashboard that emphasizes Perun Core's unique value proposition: **Real-time Margin Protection**.
 
-### 💎 Key Features Delivered:
+### 💎 Key Features & Polishing:
+- **Project-First Flow**: Optimized "Magic Moment" transition from Deal to Project.
+- **Margin Protection UI**: Enhanced Dashboard with prominent Margin Bars and brand messaging: _"Perun Core pilnuje, żeby marża, którą sprzedałeś, nie zniknęła podczas realizacji."_
+- **Conversion-Driven Landing Page**: New Hero section, Comparison section (vs Excel/HubSpot/ClickUp), and high-urgency Early Bird CTAs.
 - **Core Margin Engine**: Real-time calculation of margin and burn-rate based on project costs.
 - **Dynamic Dashboard**: Professional overview with metrics, margin bars, and AI-powered alerts.
-- **Zero-Friction CRM**: Deal pipeline with "Convert to Project" magic moment.
 - **Stripe Integration**: Fully integrated Stripe Checkout for Early Bird subscriptions.
-- **Conversion Landing Page**: High-impact sales page with Early Bird CTA.
 
 ### 🛠️ Technical Implementation:
 - **Database Schema**: New `subscriptions` table and `early_bird_until` column in `tenants` with RLS protection.
@@ -66,8 +67,10 @@ Perun Core closes that gap. The pipeline and the project are the **same object's
 **The promise to the user:** _"See the real margin of every project in real time — and get warned before a project starts bleeding money."_
 
 **Why it can win:**
+- **Project-First CRM** — Unlike HubSpot or Pipedrive, Perun Core understands that winning a deal is only 50% of the battle. It carries the budget directly into project execution (The Magic Moment).
+- **Real-time Margin Protection** — Most companies realize they lost money only after the project is finished. Perun Core shows you the profit line *as the work happens*.
 - **Modern, fast, self-serve UX** — built for owners who want to open it and understand it in 30 seconds, not sit through a multi-day implementation.
-- **Polish-first** — PLN, Polish UI, and designed to plug into **KSeF** (mandatory structured e-invoicing in Poland from 2026), so actual-cost data can flow in with minimal manual entry.
+- **Polish-first & KSeF ready** — PLN, Polish UI, and designed to plug into **KSeF** (mandatory structured e-invoicing in Poland from 2026) for automatic cost tracking.
 - **Frictionless cost capture** — the hard part of every margin tool is getting real costs entered. Perun treats cost entry as the product's core problem, not an afterthought.
 
 > ⚠️ **The #1 product risk, stated up front:** a margin dashboard is only as honest as the cost data behind it. Every design and engineering decision must lower the friction of logging an actual cost. A beautiful dashboard fed by stale data is worthless.
