@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui";
 import { EarlyBirdBanner } from "@/components/early-bird-banner";
 import { TestimonialSection } from "@/components/testimonial-section";
+import { CheckoutButton } from "@/components/checkout-button";
 import {
   Zap,
   ShieldCheck,
@@ -338,9 +339,9 @@ export default function Home() {
                     <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 18 wolnych licencji z blokadą ceny na 12 miesięcy.</p>
                  </div>
 
-                 <Link href="/login?plan=early-bird" className="block w-full py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all shadow-lg">
+                 <CheckoutButton priceId="price_early_bird" className="block w-full py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all shadow-lg">
                    Zajmij miejsce w kolejce
-                 </Link>
+                 </CheckoutButton>
                  <p className="text-[10px] text-gray-600 mt-6 font-bold uppercase tracking-widest tracking-widest">Bez kart kredytowej na start</p>
               </div>
             </div>

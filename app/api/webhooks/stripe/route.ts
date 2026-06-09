@@ -37,11 +37,16 @@ export async function POST(req: Request) {
           if (tenantId && subscriptionId) {
             const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
 
+            // Set early_bird_until to 1 year from now
+            const earlyBirdUntil = new Date();
+            earlyBirdUntil.setFullYear(earlyBirdUntil.getFullYear() + 1);
+
             await supabase
               .from('tenants')
               .update({
                 subscription_status: subscription.status,
-                stripe_customer_id: session.customer as string
+                stripe_customer_id: session.customer as string,
+                early_bird_until: earlyBirdUntil.toISOString()
               })
               .eq('id', tenantId);
 

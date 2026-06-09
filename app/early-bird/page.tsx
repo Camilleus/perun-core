@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
 import { Zap, ShieldCheck, CheckCircle2, ArrowLeft, Clock, HelpCircle, Star, ShieldAlert, TrendingUp, BarChart3 } from "lucide-react";
 import Link from "next/link";
-import { WaitlistForm } from "@/components/waitlist-form";
+import { CheckoutButton } from "@/components/checkout-button";
 
 export default function EarlyBirdPage() {
   return (
@@ -96,8 +96,13 @@ export default function EarlyBirdPage() {
                       <p className="text-3xl font-black text-brand-gold tracking-tighter">13 / 30</p>
                    </div>
                 </div>
-                <WaitlistForm />
-                <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest text-center mt-8">Bez zobowiązań. Rozmowa nie jest ofertą handlową.</p>
+                <CheckoutButton
+                  priceId="price_early_bird"
+                  className="w-full py-8 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-2xl"
+                >
+                  Zablokuj cenę Early Bird <Zap className="ml-2 w-4 h-4 fill-current" />
+                </CheckoutButton>
+                <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest text-center mt-8">Gwarancja najniższej ceny przez 12 miesięcy.</p>
               </CardContent>
             </Card>
 
