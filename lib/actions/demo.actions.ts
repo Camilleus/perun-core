@@ -25,8 +25,8 @@ export async function seedDemoData() {
       .from('projects')
       .insert({
         tenant_id: tenantId,
-        name: 'Demo: Green Tower Office',
-        budget_planned_pln: 500000,
+        name: 'Demo: Green Tower Office (Healthy)',
+        budget_planned_pln: 1200000,
         status: 'active',
         start_date: new Date().toISOString()
       })
@@ -37,13 +37,13 @@ export async function seedDemoData() {
 
     // Add healthy stages and costs
     await supabase.from('project_stages').insert([
-      { tenant_id: tenantId, project_id: healthyProject.id, name: 'Fundamenty', order_index: 0, budget_allocated_pln: 100000 },
-      { tenant_id: tenantId, project_id: healthyProject.id, name: 'Konstrukcja', order_index: 1, budget_allocated_pln: 300000 }
+      { tenant_id: tenantId, project_id: healthyProject.id, name: 'Fundamenty', order_index: 0, budget_allocated_pln: 200000 },
+      { tenant_id: tenantId, project_id: healthyProject.id, name: 'Konstrukcja Stalowa', order_index: 1, budget_allocated_pln: 500000 }
     ]);
 
     await supabase.from('costs').insert([
-      { tenant_id: tenantId, project_id: healthyProject.id, description: 'Beton B25', amount_pln: 45000, category: 'materials' },
-      { tenant_id: tenantId, project_id: healthyProject.id, description: 'Zbrojenie stalowe', amount_pln: 30000, category: 'materials' }
+      { tenant_id: tenantId, project_id: healthyProject.id, description: 'Beton konstrukcyjny B30', amount_pln: 120000, category: 'materials' },
+      { tenant_id: tenantId, project_id: healthyProject.id, description: 'Zbrojenie stalowe', amount_pln: 80000, category: 'materials' }
     ]);
 
     // 2. Create an At-Risk Project
@@ -51,8 +51,8 @@ export async function seedDemoData() {
       .from('projects')
       .insert({
         tenant_id: tenantId,
-        name: 'Demo: Modern Villa Fit-out',
-        budget_planned_pln: 200000,
+        name: 'Demo: Modern Villa Fit-out (At Risk)',
+        budget_planned_pln: 350000,
         status: 'active',
         start_date: new Date().toISOString()
       })
@@ -62,32 +62,33 @@ export async function seedDemoData() {
     if (rpError) throw rpError;
 
     const { data: stage } = await supabase.from('project_stages').insert({
-      tenant_id: tenantId, project_id: riskProject.id, name: 'Wykończenie wnętrz', order_index: 0, budget_allocated_pln: 200000
+      tenant_id: tenantId, project_id: riskProject.id, name: 'Wykończenie wnętrz', order_index: 0, budget_allocated_pln: 350000
     }).select().single();
 
-    // High costs to trigger alerts
+    // High costs to trigger critical alerts (>90% burn)
     await supabase.from('costs').insert([
-      { tenant_id: tenantId, project_id: riskProject.id, stage_id: stage?.id, description: 'Włoskie marmury (nadmiar)', amount_pln: 120000, category: 'materials' },
-      { tenant_id: tenantId, project_id: riskProject.id, stage_id: stage?.id, description: 'Ekipa wykończeniowa Premium', amount_pln: 70000, category: 'labor' }
+      { tenant_id: tenantId, project_id: riskProject.id, stage_id: stage?.id, description: 'Importowany marmur Carrara', amount_pln: 180000, category: 'materials' },
+      { tenant_id: tenantId, project_id: riskProject.id, stage_id: stage?.id, description: 'Zaliczka dla ekipy Premium', amount_pln: 150000, category: 'labor' }
     ]);
 
     // Add a Risk and Alert
     await supabase.from('risks').insert({
       tenant_id: tenantId,
       project_id: riskProject.id,
-      description: 'Opóźnienie dostawy armatury',
+      description: 'Drastyczny wzrost cen materiałów wykończeniowych',
       probability: 'High',
       impact: 'Critical',
-      mitigation_plan: 'Zamówienie u lokalnego dostawcy (drożej)',
-      owner: 'Jan Kowalski'
+      mitigation_plan: 'Rewizja projektu i wybór tańszych zamienników dla pozostałych etapów',
+      owner: 'Marek Nowak'
     });
 
     await supabase.from('alerts').insert({
       tenant_id: tenantId,
       project_id: riskProject.id,
-      title: 'Krytyczne zużycie budżetu',
-      message: 'Projekt przekroczył 95% planowanych kosztów na etapie wykończenia.',
-      severity: 'critical'
+      title: 'KRYTYCZNE: Budżet niemal wyczerpany',
+      message: 'Projekt osiągnął 94% planowanych kosztów. Każdy kolejny wydatek zniszczy marżę.',
+      severity: 'critical',
+      type: 'budget_limit_reached'
     });
 
     revalidatePath('/');

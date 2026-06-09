@@ -22,6 +22,7 @@ export function OnboardingWizard() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [isConverted, setIsConverted] = useState(false);
+  const [showSparkles, setShowSparkles] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -55,6 +56,7 @@ export function OnboardingWizard() {
       formData.append('value', dealValue);
       await createDeal(formData);
       setStep(3);
+      setTimeout(() => setShowSparkles(true), 500);
     } catch (err) {
       const error = err as Error;
       setError(error.message);
@@ -168,31 +170,44 @@ export function OnboardingWizard() {
                 <div className="relative min-h-[160px] flex items-center justify-center bg-white/5 rounded-[2rem] border border-white/5 overflow-hidden group">
                   {!isConverted ? (
                     <div className="text-center space-y-4 animate-in fade-in zoom-in duration-300">
-                      <div className="bg-brand-navy-dk border border-white/10 p-6 rounded-2xl shadow-xl">
+                      <div className="bg-brand-navy-dk border border-white/10 p-6 rounded-2xl shadow-xl relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-brand-gold/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <div className="flex items-center justify-between mb-4">
                            <span className="text-[10px] font-black uppercase tracking-widest text-brand-gold">Deal: Won</span>
                            <span className="text-white font-bold">150 000 PLN</span>
                         </div>
-                        <p className="text-white font-black text-left mb-4">Instalacja PV - Kowalski</p>
+                        <p className="text-white font-black text-left mb-4 uppercase tracking-tighter">Instalacja PV - Kowalski</p>
                         <Button
-                          onClick={() => setIsConverted(true)}
-                          className="w-full bg-brand-gold text-black font-black uppercase text-xs tracking-widest h-10 hover:scale-105 transition-all"
+                          onClick={() => {
+                            setIsConverted(true);
+                            setShowSparkles(true);
+                          }}
+                          className="w-full bg-brand-gold text-black font-black uppercase text-xs tracking-widest h-10 hover:scale-105 transition-all shadow-lg"
                         >
                           Konwertuj na Projekt
                         </Button>
                       </div>
                     </div>
                   ) : (
-                    <div className="w-full p-8 animate-in slide-in-from-bottom-4 duration-500">
+                    <div className="w-full p-8 animate-in zoom-in duration-700 relative overflow-hidden">
+                       {showSparkles && (
+                         <div className="absolute inset-0 pointer-events-none">
+                            <div className="absolute top-2 left-4 animate-bounce"><Sparkles className="w-4 h-4 text-brand-gold" /></div>
+                            <div className="absolute bottom-4 right-6 animate-pulse"><Zap className="w-3 h-3 text-brand-gold fill-brand-gold" /></div>
+                            <div className="absolute top-1/2 right-4 animate-bounce delay-75"><Sparkles className="w-3 h-3 text-brand-gold" /></div>
+                         </div>
+                       )}
                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-black uppercase text-white">Projekt Aktywny</span>
-                          <span className="text-brand-gold font-black">Zysk: 45 000 PLN</span>
+                          <span className="text-xs font-black uppercase text-white tracking-widest">Projekt Aktywny</span>
+                          <span className="text-brand-gold font-black text-lg tracking-tighter animate-in slide-in-from-right-4">Zysk: 45 000 PLN</span>
                        </div>
-                       <div className="w-full h-4 bg-white/10 rounded-full overflow-hidden mb-4 border border-white/5">
-                          <div className="w-[70%] h-full bg-gradient-to-r from-green-500 to-brand-gold" />
+                       <div className="w-full h-5 bg-white/10 rounded-full overflow-hidden mb-4 border border-white/5 p-1">
+                          <div className="h-full bg-gradient-to-r from-green-500 via-brand-gold to-brand-gold rounded-full transition-all duration-1000 ease-out w-[70%] relative overflow-hidden">
+                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
+                          </div>
                        </div>
-                       <div className="flex gap-2 items-center text-green-500 text-[10px] font-black uppercase tracking-widest">
-                          <CheckCircle2 className="w-3 h-3" /> Budżet zabezpieczony
+                       <div className="flex gap-2 items-center text-green-500 text-[10px] font-black uppercase tracking-[0.2em] animate-pulse">
+                          <CheckCircle2 className="w-4 h-4" /> Marża chroniona w czasie rzeczywistym
                        </div>
                     </div>
                   )}

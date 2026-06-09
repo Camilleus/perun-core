@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui";
 import { EarlyBirdBanner } from "@/components/early-bird-banner";
+import { TestimonialSection } from "@/components/testimonial-section";
 import {
   Zap,
   ShieldCheck,
@@ -207,6 +208,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Jak zacząć Section */}
+      <section className="py-32 bg-white/[0.02]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-24">
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-6">Jak zacząć?</h2>
+            <p className="text-gray-500 font-medium max-w-2xl mx-auto text-xl">
+              Wdrożenie Perun Core zajmuje mniej czasu niż wypicie kawy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              {
+                step: "01",
+                title: "Załóż konto",
+                desc: "Rejestracja trwa 30 sekund. Nie potrzebujesz karty kredytowej na start."
+              },
+              {
+                step: "02",
+                title: "Dodaj pierwszy Deal",
+                desc: "Wprowadź nazwę klienta i budżet. To Twój punkt wyjściowy dla marży."
+              },
+              {
+                step: "03",
+                title: "Chroń swoją marżę",
+                desc: "Konwertuj Deal na Projekt i loguj koszty. System zajmie się resztą."
+              }
+            ].map((s, i) => (
+              <div key={i} className="relative p-10 bg-brand-navy-dk border border-white/5 rounded-[2.5rem] group hover:border-brand-gold/30 transition-all">
+                <span className="absolute -top-6 left-10 text-6xl font-black text-brand-gold/10 group-hover:text-brand-gold/20 transition-colors leading-none">
+                  {s.step}
+                </span>
+                <h3 className="text-2xl font-black mb-4 relative z-10">{s.title}</h3>
+                <p className="text-gray-500 font-medium relative z-10">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Dedicated Early Bird Counter Section */}
       <section id="early-bird-section" className="py-24 bg-brand-gold relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -234,6 +275,9 @@ export default function Home() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-navy/5 blur-[80px] rounded-full -translate-x-1/2 translate-y-1/2" />
       </section>
+
+      {/* Testimonials */}
+      <TestimonialSection />
 
       {/* Early Bird / Offer Section */}
       <section id="oferta" className="py-32 relative">

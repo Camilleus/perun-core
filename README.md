@@ -18,9 +18,9 @@ _Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
 
 ---
 
-## 🚀 Current Status: MVP Completed — Ready for Early Bird Launch & First Paying Customers (Phase 7)
+## 🚀 Current Status: MVP Completed — Early Bird Launch Ready (Phase 8)
 
-The MVP is now fully complete and ready for the first paying customers. This phase includes a polished onboarding experience, a comprehensive demo mode with realistic mock data, and integrated sales assets (Early Bird banners and countdowns) to drive conversion.
+The MVP is fully complete and polished for the Early Bird launch. This phase focused on sales enablement, final UI/UX polish, and dedicated landing pages for the Early Bird offer.
 
 ### 💎 Key Features Delivered:
 - **Core Margin Engine**: Real-time calculation of margin and burn-rate based on project costs.
@@ -735,6 +735,15 @@ STRIPE_WEBHOOK_SECRET=
    - Review the **Risk Register** and **Active Alerts**.
    - Read the **AI Co-Pilot Insight** at the bottom of the card.
 5. **Subscription**: Visit `/pricing` to see the Early Bird price lock offer.
+
+### 💎 Early Bird Offer Details
+We are looking for the first 30 companies to join as **Founders**.
+- **Price**: 79–99 PLN / user / month (Price locked for 12 months).
+- **Benefits**:
+  - Full access to all modules (CRM, Projects, AI Co-Pilot).
+  - Priority support and onboarding.
+  - Direct influence on the product roadmap.
+  - "Founder" status in the system.
 
 <div align="center">
 

@@ -6,7 +6,8 @@ import {
   MoreVertical,
   Calendar,
   Building2,
-  CheckCircle2
+  CheckCircle2,
+  BarChart3
 } from "lucide-react";
 import { Deal } from "@/types";
 
@@ -35,14 +36,17 @@ export default async function PipelinePage() {
   }, {} as Record<string, Deal[]>);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">Sales Pipeline</h1>
-          <p className="text-gray-400 mt-1">Manage your active deals and convert them into projects.</p>
+          <h1 className="text-3xl font-black tracking-tight text-white flex items-center gap-3">
+             <BarChart3 className="w-8 h-8 text-brand-gold" />
+             Pipeline Sprzedaży
+          </h1>
+          <p className="text-gray-400 mt-1 font-medium">Zarządzaj szansami i konwertuj je na projekty z chronioną marżą.</p>
         </div>
-        <button className="bg-brand-navy text-brand-gold px-4 py-2 rounded-lg font-medium hover:bg-brand-navy/90 transition-colors flex items-center gap-2">
-          <Plus className="w-4 h-4" /> New Deal
+        <button className="bg-brand-gold text-brand-navy px-6 py-3 rounded-xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-lg flex items-center gap-2">
+          <Plus className="w-4 h-4" /> Nowy Deal
         </button>
       </div>
 
@@ -76,9 +80,10 @@ export default async function PipelinePage() {
 
 function DealCard({ deal }: { deal: Deal }) {
   return (
-    <div className="bg-card border border-border rounded-xl p-4 hover:border-brand-gold-dk/50 transition-all group cursor-pointer shadow-sm">
-      <div className="flex justify-between items-start mb-3">
-        <h4 className="font-semibold text-white group-hover:text-brand-gold-dk transition-colors leading-tight">
+    <div className="bg-brand-navy-dk/50 border border-white/5 rounded-2xl p-5 hover:border-brand-gold/30 transition-all group cursor-pointer shadow-sm hover:shadow-xl relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-16 h-16 bg-brand-gold/5 blur-xl rounded-full -mr-8 -mt-8 opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="flex justify-between items-start mb-3 relative z-10">
+        <h4 className="font-black text-white group-hover:text-brand-gold transition-colors leading-tight">
           {deal.title}
         </h4>
         <button className="text-gray-500 hover:text-white transition-colors">
@@ -97,8 +102,8 @@ function DealCard({ deal }: { deal: Deal }) {
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-3 border-t border-border/50">
-        <span className="font-bold text-brand-gold">
+      <div className="flex items-center justify-between pt-4 border-t border-white/5 relative z-10">
+        <span className="font-black text-brand-gold tracking-tight">
           {formatCurrency(deal.value_planned_pln)}
         </span>
 
