@@ -1,13 +1,23 @@
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui";
-import { CheckCircle2, Zap, Clock } from "lucide-react";
+import { CheckCircle2, Zap, Clock, ArrowLeft } from "lucide-react";
 import { redirectToCheckout } from "@/lib/actions/billing.actions";
+import Link from "next/link";
 
 export default function PricingPage() {
   const earlyBirdPriceId = process.env.NEXT_PUBLIC_STRIPE_EARLY_BIRD_PRICE_ID || "price_early_bird";
   const regularPriceId = process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID || "price_regular";
 
   return (
-    <div className="max-w-5xl mx-auto space-y-12 py-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="min-h-screen bg-brand-navy selection:bg-brand-gold selection:text-black text-white">
+      {/* Simple Nav */}
+      <nav className="h-20 border-b border-white/5 flex items-center px-6">
+        <Link href="/" className="flex items-center gap-2 group text-gray-400 hover:text-brand-gold transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm font-bold uppercase tracking-widest">Powrót do strony głównej</span>
+        </Link>
+      </nav>
+
+    <div className="max-w-5xl mx-auto space-y-12 py-16 px-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-black text-white tracking-tighter">Plan, który chroni Twoją marżę</h1>
         <p className="text-gray-400 max-w-2xl mx-auto font-medium">
@@ -101,7 +111,8 @@ export default function PricingPage() {
         </Card>
       </div>
 
-      <div className="bg-brand-navy/10 border border-brand-navy/20 rounded-[2rem] p-8 text-center max-w-3xl mx-auto">
+    </div>
+      <div className="bg-brand-navy-dk/50 border border-white/5 rounded-[2rem] p-8 text-center max-w-3xl mx-auto mb-20">
          <p className="text-sm font-medium text-gray-400">
            Masz więcej niż 20 użytkowników? <a href="mailto:kontakt@veles.digital" className="text-brand-gold hover:underline font-bold">Skontaktuj się z nami</a> po ofertę Enterprise z wdrożeniem dedykowanym.
          </p>

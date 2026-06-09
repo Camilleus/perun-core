@@ -18,9 +18,9 @@ _Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
 
 ---
 
-## 🚀 Current Status: MVP Completed — Ready for Early Bird Launch
+## 🚀 Current Status: MVP Completed — Early Bird Launch Ready (Phase 6)
 
-The MVP is now complete and ready for the Early Bird launch. The system features a polished dashboard, real-time margin tracking, and a high-conversion landing page.
+The MVP is now fully complete and actively launched in the Early Bird phase. The system features a high-conversion waitlist, a dedicated public pricing page, and a visual toast notification system for better UX.
 
 ### 💎 Key Features Delivered:
 - **Core Margin Engine**: Real-time calculation of margin and burn-rate based on project costs.

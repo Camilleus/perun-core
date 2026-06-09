@@ -49,9 +49,9 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-xs font-black uppercase tracking-widest mb-10 animate-in slide-in-from-bottom-4 duration-500">
-               <Zap className="w-4 h-4 fill-brand-gold" /> Early Bird – 79–99 zł/mies (limit 30 firm)
-            </div>
+            <Link href="/early-bird" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-gold text-brand-navy text-xs font-black uppercase tracking-widest mb-10 animate-in slide-in-from-bottom-4 duration-500 hover:scale-105 transition-all shadow-[0_0_30px_rgba(209,166,96,0.3)] group">
+               <Zap className="w-4 h-4 fill-brand-navy animate-pulse" /> Early Bird – 79–99 zł/mies (limit 30 firm) <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
             <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.85] mb-10 animate-in slide-in-from-bottom-6 duration-700">
               Chronię Twoją marżę. <br/>
               <span className="text-brand-gold drop-shadow-[0_0_30px_rgba(209,166,96,0.3)]">Zanim stracisz pieniądze.</span>

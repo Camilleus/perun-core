@@ -32,18 +32,19 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10">
       {tenant?.early_bird_until && new Date(tenant.early_bird_until) > new Date() && (
-        <div className="bg-gradient-to-r from-brand-gold/20 to-brand-gold/5 border border-brand-gold/30 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_0_30px_rgba(209,166,96,0.1)]">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-brand-gold rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(209,166,96,0.3)]">
-              <Zap className="w-6 h-6 text-black fill-black" />
+        <div className="bg-brand-gold border border-brand-gold/30 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[0_0_40px_rgba(209,166,96,0.4)] relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+          <div className="flex items-center gap-5 relative z-10">
+            <div className="w-14 h-14 bg-brand-navy rounded-2xl flex items-center justify-center shadow-2xl">
+              <Zap className="w-8 h-8 text-brand-gold fill-brand-gold animate-pulse" />
             </div>
             <div>
-              <p className="text-base font-black text-white uppercase tracking-tighter">Ostatnia szansa na Early Bird!</p>
-              <p className="text-sm text-gray-400">Zablokuj cenę <span className="text-brand-gold font-bold">79 PLN/użytkownika</span> na rok. Oferta wygasa za {Math.ceil((new Date(tenant.early_bird_until).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} dni.</p>
+              <p className="text-xl font-black text-brand-navy uppercase tracking-tighter leading-none mb-1">Status Early Bird: Aktywny</p>
+              <p className="text-brand-navy/70 font-bold text-sm">Twoja gwarancja ceny <span className="underline decoration-brand-navy/30">79 PLN</span> wygaśnie za {Math.ceil((new Date(tenant.early_bird_until).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} dni.</p>
             </div>
           </div>
-          <Link href="/pricing" className="w-full sm:w-auto px-8 py-3 bg-brand-gold text-black rounded-xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-lg active:scale-95">
-            Zabezpiecz cenę
+          <Link href="/pricing" className="w-full sm:w-auto px-10 py-4 bg-brand-navy text-brand-gold rounded-xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-2xl active:scale-95 relative z-10">
+            Zarządzaj subskrypcją
           </Link>
         </div>
       )}
