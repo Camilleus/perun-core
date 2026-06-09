@@ -84,10 +84,10 @@ export interface Risk {
 
 export interface Alert {
   id: string;
-  project_id?: string | null;
+  project_id: string;
   tenant_id: string;
-  type: 'margin_drop' | 'budget_overrun' | 'risk_detected';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  type: 'margin_watch' | 'margin_warning' | 'margin_critical' | 'risk_detected';
+  severity: 'low' | 'medium' | 'high';
   message: string;
   is_read: boolean;
   created_at: string;

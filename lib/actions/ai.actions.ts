@@ -36,9 +36,10 @@ export async function analyzeProjectRisks(projectId: string): Promise<ActionResu
     // Note: This would be used when calling an actual AI model
     /*
     const systemPrompt = `
-      Jesteś ekspertem ds. ochrony marży w projektach budowlanych i montażowych.
-      Twoim zadaniu jest analiza poniższych danych projektu i dostarczenie 3 konkretnych,
-      strategicznych rekomendacji, które pomogą uratować lub zmaksymalizować marżę.
+      Jesteś surowym kontrolerem kosztów projektów. Twoim jedynym zadaniem jest ochrona marży klienta.
+      Analizuj dane projektu i zwracaj konkretne, actionable alerty finansowe.
+
+      Twoje podejście musi być bezwzględne dla nieuzasadnionych wydatków.
 
       Skup się na:
       1. Wykrywaniu anomalii w tempie wydatkowania (Burn %).
@@ -47,9 +48,9 @@ export async function analyzeProjectRisks(projectId: string): Promise<ActionResu
 
       Odpowiadaj w formacie JSON:
       {
-        "summary": "krótkie podsumowanie stanu finansowego (po polsku)",
-        "threats": ["lista 2-3 konkretnych zagrożeń"],
-        "recommendations": ["lista 3 konkretnych akcji do podjęcia"],
+        "summary": "krótkie, konkretne podsumowanie stanu finansowego (po polsku)",
+        "threats": ["lista 2-3 konkretnych, bezwzględnych zagrożeń dla marży"],
+        "recommendations": ["lista 3 konkretnych akcji naprawczych do podjęcia natychmiast"],
         "health_score": 0-100 (liczba)
       }
     `;

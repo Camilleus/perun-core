@@ -83,7 +83,7 @@ export default async function DemoPage() {
                     </h3>
                     <div className="space-y-3">
                       {project.alerts?.length > 0 ? (project.alerts as AlertType[]).map(alert => (
-                        <div key={alert.id} className={`p-4 rounded-xl border ${alert.severity === 'critical' ? 'bg-red-500/5 border-red-500/20 text-red-200' : 'bg-orange-500/5 border-orange-500/20 text-orange-200'} text-sm font-medium`}>
+                        <div key={alert.id} className={`p-4 rounded-xl border ${alert.severity === 'high' ? 'bg-red-500/5 border-red-500/20 text-red-200' : 'bg-orange-500/5 border-orange-500/20 text-orange-200'} text-sm font-medium`}>
                            <span className="font-black block uppercase text-[10px] mb-1">Alert Systemowy</span>
                            {alert.message}
                         </div>
