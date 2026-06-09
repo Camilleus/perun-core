@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui";
+import { EarlyBirdBanner } from "@/components/early-bird-banner";
 import {
   Zap,
   ShieldCheck,
@@ -21,8 +22,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-hero text-white selection:bg-brand-gold selection:text-black font-sans">
+      <EarlyBirdBanner className="fixed top-0 w-full z-[60]" />
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-gradient-hero/80 backdrop-blur-md border-b border-white/5">
+      <nav className="fixed top-12 w-full z-50 bg-gradient-hero/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 group cursor-pointer">
             <Zap className="w-8 h-8 text-brand-gold fill-brand-gold group-hover:scale-110 transition-transform" />
@@ -40,7 +42,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
            <div className="absolute top-[10%] left-[5%] w-[50%] h-[50%] bg-brand-navy-lt/20 blur-[140px] rounded-full animate-pulse" />
@@ -64,7 +66,7 @@ export default function Home() {
               <Link href="/login" className="px-10 py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-[0_0_50px_var(--shadow-navy)] text-center flex items-center justify-center gap-2">
                 Uruchom darmowe demo <ArrowRight className="w-5 h-5" />
               </Link>
-              <a href="#oferta" className="px-10 py-6 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all text-center flex items-center justify-center gap-2">
+              <a href="#early-bird-section" className="px-10 py-6 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all text-center flex items-center justify-center gap-2">
                 Zobacz ofertę Early Bird
               </a>
             </div>
@@ -203,6 +205,34 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Dedicated Early Bird Counter Section */}
+      <section id="early-bird-section" className="py-24 bg-brand-gold relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <div className="text-brand-navy max-w-xl">
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-6 leading-none">
+                Zostało tylko <br/>
+                <span className="text-white drop-shadow-sm">12 z 30 miejsc</span>
+              </h2>
+              <p className="text-lg font-bold opacity-80 mb-8">
+                Dołącz do grona Fundatorów Perun Core i zablokuj cenę 79-99 PLN na zawsze.
+                Gdy licznik osiągnie zero, cena wzrośnie do 149 PLN.
+              </p>
+              <div className="w-full h-4 bg-brand-navy/10 rounded-full overflow-hidden mb-4 p-1 border border-brand-navy/5">
+                 <div className="h-full bg-brand-navy rounded-full shadow-lg" style={{ width: '60%' }} />
+              </div>
+              <p className="text-xs font-black uppercase tracking-widest opacity-60">Status: 18 firm już chroni swoją marżę</p>
+            </div>
+            <Link href="/early-bird" className="px-12 py-8 bg-brand-navy text-brand-gold rounded-[2rem] font-black uppercase tracking-[0.2em] text-lg hover:scale-105 transition-all shadow-2xl flex items-center gap-4 group">
+              Zajmij swoje miejsce <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </div>
+        </div>
+        {/* Background Patterns */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-navy/5 blur-[80px] rounded-full -translate-x-1/2 translate-y-1/2" />
       </section>
 
       {/* Early Bird / Offer Section */}

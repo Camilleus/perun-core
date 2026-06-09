@@ -18,9 +18,9 @@ _Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
 
 ---
 
-## 🚀 Current Status: MVP Completed — Early Bird Launch Ready (Phase 6)
+## 🚀 Current Status: MVP Completed — Ready for Early Bird Launch & First Paying Customers (Phase 7)
 
-The MVP is now fully complete and actively launched in the Early Bird phase. The system features a high-conversion waitlist, a dedicated public pricing page, and a visual toast notification system for better UX.
+The MVP is now fully complete and ready for the first paying customers. This phase includes a polished onboarding experience, a comprehensive demo mode with realistic mock data, and integrated sales assets (Early Bird banners and countdowns) to drive conversion.
 
 ### 💎 Key Features Delivered:
 - **Core Margin Engine**: Real-time calculation of margin and burn-rate based on project costs.
@@ -721,6 +721,20 @@ STRIPE_WEBHOOK_SECRET=
    Navigate to a project detail and add a new cost line item. Observe how the Margin Bar and project health metrics update in real time.
 4. **Early Bird Conversion**:
    Visit the Landing Page (`/`) to see the Early Bird offer and flow.
+
+### 🧪 How to Test the Full Flow
+
+1. **New User Signup**: Register a new account. You will be greeted by the **Onboarding Wizard**.
+2. **Onboarding**:
+   - Enter your company name.
+   - Create your first Deal (e.g., "Budowa Dachu").
+   - Experience the **Magic Moment** in Step 3 by clicking "Konwertuj na Projekt".
+3. **Explore Features**: After onboarding, go to **Settings** and click **"Uruchom demo"**. This will populate your account with complex demo data.
+4. **Analyze Margin**: Navigate to the **Demo** page or click on a project like "Demo: Modern Villa Fit-out".
+   - Check the **Margin Bar** (it will be red if costs > 90%).
+   - Review the **Risk Register** and **Active Alerts**.
+   - Read the **AI Co-Pilot Insight** at the bottom of the card.
+5. **Subscription**: Visit `/pricing` to see the Early Bird price lock offer.
 
 <div align="center">
 
