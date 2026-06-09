@@ -11,23 +11,23 @@ _Zobacz realną marżę każdego projektu — zanim stracisz na nim pieniądze._
 ![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-3FCF8E?logo=supabase&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-06B6D4?logo=tailwindcss&logoColor=white)
 ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-components-000000)
-![Status](https://img.shields.io/badge/status-Phase%204.5%20Complete-green)
+![Status](https://img.shields.io/badge/status-MVP%20Completed-green)
 ![License](https://img.shields.io/badge/license-proprietary-lightgrey)
 
 </div>
 
 ---
 
-## 🚀 Current Status (End of Phase 4.5)
+## 🚀 Current Status: MVP Completed — Ready for Early Bird Launch
 
-Phase 4.5 — **Billing & Early Bird Readiness** — is complete. The system is now ready to accept payments and handle Early Bird subscriptions.
+The MVP is now complete and ready for the Early Bird launch. The system features a polished dashboard, real-time margin tracking, and a high-conversion landing page.
 
 ### 💎 Key Features Delivered:
-- **Stripe Integration**: Fully integrated Stripe Checkout for subscriptions with webhook support for real-time status synchronization.
-- **Early Bird Readiness**: Automated logic for tracking Early Bird eligibility per tenant and displaying targeted offers.
-- **Subscription Management**: New "Subscription" section in organization settings allowing users to upgrade, view their current plan, and manage billing.
-- **Pricing Page**: Dedicated pricing page showcasing Early Bird vs. Standard tiers with clear value propositions and limited-spot counters.
-- **Marketing & Conversion**: Updated landing page and dashboard with conversion-focused Early Bird elements.
+- **Core Margin Engine**: Real-time calculation of margin and burn-rate based on project costs.
+- **Dynamic Dashboard**: Professional overview with metrics, margin bars, and AI-powered alerts.
+- **Zero-Friction CRM**: Deal pipeline with "Convert to Project" magic moment.
+- **Stripe Integration**: Fully integrated Stripe Checkout for Early Bird subscriptions.
+- **Conversion Landing Page**: High-impact sales page with Early Bird CTA.
 
 ### 🛠️ Technical Implementation:
 - **Database Schema**: New `subscriptions` table and `early_bird_until` column in `tenants` with RLS protection.
@@ -704,6 +704,23 @@ STRIPE_WEBHOOK_SECRET=
 | **KSeF** | Poland's mandatory structured e-invoicing system (2026); future cost-import source. |
 
 ---
+
+---
+
+## 🧪 How to Test
+
+1. **Setup Database**:
+   Run the migrations and then execute the seed script:
+   ```bash
+   supabase db reset
+   # seed.sql will be applied automatically if it's in supabase/seed.sql
+   ```
+2. **Dashboard Overview**:
+   Log in to the dashboard to see the healthy vs. at-risk project visualization, margin bars, and active alerts.
+3. **Margin Protection**:
+   Navigate to a project detail and add a new cost line item. Observe how the Margin Bar and project health metrics update in real time.
+4. **Early Bird Conversion**:
+   Visit the Landing Page (`/`) to see the Early Bird offer and flow.
 
 <div align="center">
 

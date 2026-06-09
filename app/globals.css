@@ -69,6 +69,15 @@
     --foreground: var(--text-brand-navy);
     --primary: var(--color-navy);
   }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
 }
 
 @layer base {

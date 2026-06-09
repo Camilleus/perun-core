@@ -54,7 +54,7 @@ export default function Home() {
             </div>
             <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.85] mb-10 animate-in slide-in-from-bottom-6 duration-700">
               Chronię Twoją marżę. <br/>
-              <span className="text-brand-gold">Zanim stracisz pieniądze.</span>
+              <span className="text-brand-gold drop-shadow-[0_0_30px_rgba(209,166,96,0.3)]">Zanim stracisz pieniądze.</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 font-medium leading-relaxed mb-12 max-w-2xl animate-in slide-in-from-bottom-8 duration-900">
               Project-First CRM dla firm, które zarabiają na projektach. <br className="hidden md:block"/>
@@ -248,8 +248,8 @@ export default function Home() {
 
                  <p className="text-gray-500 font-black uppercase tracking-widest text-[10px] mb-6">Abonament miesięczny</p>
                  <div className="flex justify-center items-end gap-2 mb-2">
-                    <span className="text-8xl font-black tracking-tighter">79</span>
-                    <span className="text-3xl font-black text-gray-500 mb-2"> PLN</span>
+                    <span className="text-7xl md:text-8xl font-black tracking-tighter text-white">79-99</span>
+                    <span className="text-2xl md:text-3xl font-black text-gray-500 mb-2"> PLN</span>
                  </div>
                  <p className="text-brand-gold font-bold text-lg mb-10">za użytkownika / m-ce</p>
 
@@ -261,7 +261,7 @@ export default function Home() {
                     <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
                        <div className="w-[40%] h-full bg-brand-gold shadow-[0_0_15px_var(--shadow-navy)]" />
                     </div>
-                    <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 18 wolnych licencji w tej cenie.</p>
+                    <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 18 wolnych licencji z blokadą ceny na 12 miesięcy.</p>
                  </div>
 
                  <Link href="/login?plan=early-bird" className="block w-full py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all shadow-lg">
