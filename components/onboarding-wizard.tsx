@@ -21,6 +21,7 @@ import { cn } from '@/lib/utils';
 export function OnboardingWizard() {
   const router = useRouter();
   const [step, setStep] = useState(1);
+  const [isConverted, setIsConverted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -124,19 +125,25 @@ export function OnboardingWizard() {
                    <p className="text-gray-400">Dodajmy Twoją pierwszą szansę sprzedażową do pipeline&apos;u.</p>
                 </div>
                 <div className="space-y-4">
-                   <Input
-                     placeholder="Tytuł projektu / Klient"
-                     value={dealTitle}
-                     onChange={(e) => setDealTitle(e.target.value)}
-                     className="h-14 text-lg bg-white/5 border-white/10 focus:border-brand-gold/50 transition-all"
-                   />
-                   <Input
-                     type="number"
-                     placeholder="Szacowana wartość (PLN)"
-                     value={dealValue}
-                     onChange={(e) => setDealValue(e.target.value)}
-                     className="h-14 text-lg bg-white/5 border-white/10 focus:border-brand-gold/50 transition-all"
-                   />
+                   <div className="space-y-1">
+                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Co sprzedajesz?</label>
+                     <Input
+                       placeholder="np. Budowa Instalacji Fotowoltaicznej"
+                       value={dealTitle}
+                       onChange={(e) => setDealTitle(e.target.value)}
+                       className="h-14 text-lg bg-white/5 border-white/10 focus:border-brand-gold/50 transition-all"
+                     />
+                   </div>
+                   <div className="space-y-1">
+                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Za ile (PLN)?</label>
+                     <Input
+                       type="number"
+                       placeholder="np. 150000"
+                       value={dealValue}
+                       onChange={(e) => setDealValue(e.target.value)}
+                       className="h-14 text-lg bg-white/5 border-white/10 focus:border-brand-gold/50 transition-all"
+                     />
+                   </div>
                    <Button
                      onClick={handleStep2}
                      disabled={!dealTitle || loading}
@@ -154,48 +161,72 @@ export function OnboardingWizard() {
                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-[10px] font-black uppercase tracking-widest mb-2">
                       <Zap className="w-3 h-3 fill-brand-gold" /> Magic Moment
                    </div>
-                   <h2 className="text-3xl font-black text-white tracking-tight">Jak działa magia?</h2>
-                   <p className="text-gray-400 text-sm">Twój deal jest już w pipeline. Oto co stanie się później:</p>
+                   <h2 className="text-3xl font-black text-white tracking-tight">Poczuj tę magię</h2>
+                   <p className="text-gray-400 text-sm">Kliknij przycisk poniżej, aby zobaczyć jak Deal zamienia się w Projekt.</p>
                 </div>
 
-                <div className="grid gap-4">
-                   <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
-                      <div className="w-10 h-10 rounded-xl bg-brand-gold/20 flex items-center justify-center flex-shrink-0">
-                         <MousePointerClick className="w-5 h-5 text-brand-gold" />
+                <div className="relative min-h-[160px] flex items-center justify-center bg-white/5 rounded-[2rem] border border-white/5 overflow-hidden group">
+                  {!isConverted ? (
+                    <div className="text-center space-y-4 animate-in fade-in zoom-in duration-300">
+                      <div className="bg-brand-navy-dk border border-white/10 p-6 rounded-2xl shadow-xl">
+                        <div className="flex items-center justify-between mb-4">
+                           <span className="text-[10px] font-black uppercase tracking-widest text-brand-gold">Deal: Won</span>
+                           <span className="text-white font-bold">150 000 PLN</span>
+                        </div>
+                        <p className="text-white font-black text-left mb-4">Instalacja PV - Kowalski</p>
+                        <Button
+                          onClick={() => setIsConverted(true)}
+                          className="w-full bg-brand-gold text-black font-black uppercase text-xs tracking-widest h-10 hover:scale-105 transition-all"
+                        >
+                          Konwertuj na Projekt
+                        </Button>
                       </div>
-                      <div>
-                         <p className="text-white font-bold text-sm">Konwersja 1-klinięciem</p>
-                         <p className="text-gray-500 text-xs">Gdy wygrasz deal, jednym przyciskiem zamienisz go w aktywny Projekt.</p>
-                      </div>
-                   </div>
+                    </div>
+                  ) : (
+                    <div className="w-full p-8 animate-in slide-in-from-bottom-4 duration-500">
+                       <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-black uppercase text-white">Projekt Aktywny</span>
+                          <span className="text-brand-gold font-black">Zysk: 45 000 PLN</span>
+                       </div>
+                       <div className="w-full h-4 bg-white/10 rounded-full overflow-hidden mb-4 border border-white/5">
+                          <div className="w-[70%] h-full bg-gradient-to-r from-green-500 to-brand-gold" />
+                       </div>
+                       <div className="flex gap-2 items-center text-green-500 text-[10px] font-black uppercase tracking-widest">
+                          <CheckCircle2 className="w-3 h-3" /> Budżet zabezpieczony
+                       </div>
+                    </div>
+                  )}
 
-                   <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
-                      <div className="w-10 h-10 rounded-xl bg-brand-navy/20 flex items-center justify-center flex-shrink-0">
-                         <BarChart3 className="w-5 h-5 text-brand-navy" />
-                      </div>
-                      <div>
-                         <p className="text-white font-bold text-sm">Automatyczny Budżet</p>
-                         <p className="text-gray-500 text-xs">Wartość deala staje się Twoim limitem wydatków. System pilnuje go za Ciebie.</p>
-                      </div>
-                   </div>
+                  {/* Decorative background for the magic moment box */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/5 to-transparent pointer-events-none" />
+                </div>
 
-                   <div className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
-                      <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                         <ShieldCheck className="w-5 h-5 text-green-500" />
-                      </div>
-                      <div>
-                         <p className="text-white font-bold text-sm">Ochrona Marży</p>
-                         <p className="text-gray-500 text-xs">Loguj koszty i patrz jak Margin Bar zmienia kolor. System ostrzeże Cię przed stratą.</p>
-                      </div>
+                <div className="grid grid-cols-3 gap-2">
+                   <div className="text-center p-2">
+                      <BarChart3 className="w-5 h-5 text-brand-gold mx-auto mb-1" />
+                      <p className="text-[8px] font-black uppercase text-gray-500">Real-time Margin</p>
+                   </div>
+                   <div className="text-center p-2">
+                      <ShieldCheck className="w-5 h-5 text-brand-gold mx-auto mb-1" />
+                      <p className="text-[8px] font-black uppercase text-gray-500">Risk Control</p>
+                   </div>
+                   <div className="text-center p-2">
+                      <Zap className="w-5 h-5 text-brand-gold mx-auto mb-1" />
+                      <p className="text-[8px] font-black uppercase text-gray-500">Automation</p>
                    </div>
                 </div>
 
                 <Button
                   onClick={handleFinish}
-                  disabled={loading}
-                  className="w-full h-14 text-lg font-black uppercase tracking-widest bg-brand-gold hover:bg-brand-gold-dk/80 text-black shadow-[0_0_30px_var(--shadow-navy)]"
+                  disabled={loading || !isConverted}
+                  className={cn(
+                    "w-full h-14 text-lg font-black uppercase tracking-widest transition-all duration-500",
+                    isConverted
+                      ? "bg-brand-gold text-black shadow-[0_0_30px_rgba(209,166,96,0.4)] hover:bg-brand-gold-dk/80"
+                      : "bg-white/5 text-gray-600 cursor-not-allowed border border-white/5"
+                  )}
                 >
-                  Zacznij Zarabiać <Zap className="ml-2 w-5 h-5 fill-black" />
+                  {isConverted ? "Zacznij Zarabiać" : "Najpierw wykonaj konwersję"} <Zap className={cn("ml-2 w-5 h-5", isConverted ? "fill-black" : "fill-gray-600")} />
                 </Button>
              </div>
            )}

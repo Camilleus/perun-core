@@ -1,46 +1,23 @@
 
-> temp-next-app@0.1.0 dev /app
+> temp-next-app@0.1.0 dev
 > next dev
 
+⚠ Port 3000 is in use by an unknown process, using available port 3001 instead.
 ▲ Next.js 16.2.7 (Turbopack)
-- Local:         http://localhost:3000
-- Network:       http://192.168.0.2:3000
-✓ Ready in 541ms
+- Local:         http://localhost:3001
+- Network:       http://192.168.0.2:3001
+✓ Ready in 749ms
+⨯ Another next dev server is already running.
 
-○ Compiling / ...
- GET / 200 in 4.9s (next.js: 4.1s, application-code: 870ms)
-⨯ Error: Your project's URL and Key are required to create a Supabase client!
+- Local:        http://localhost:3000
+- PID:          39362
+- Dir:          /app
+- Log:          .next/dev/logs/next-development.log
 
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-    at <unknown> (https://supabase.com/dashboard/project/_/settings/api)
-    at createClient (lib/supabase/server.ts:7:28)
-    at async DashboardLayout (app/(dashboard)/layout.tsx:11:20)
-   5 |   const cookieStore = await cookies()
-   6 |
->  7 |   return createServerClient(
-     |                            ^
-   8 |     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-   9 |     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  10 |     { {
-  digest: '1411143031'
-}
- GET /pricing 500 in 2.7s (next.js: 2.3s, application-code: 399ms)
-[browser] Uncaught Error: Your project's URL and Key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-    at <unknown> (https://supabase.com/dashboard/project/_/settings/api)
-    at createClient (lib/supabase/server.ts:7:28)
-    at  DashboardLayout (app/(dashboard)/layout.tsx:11:20)
-   5 |   const cookieStore = await cookies()
-   6 |
->  7 |   return createServerClient(
-     |                            ^
-   8 |     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-   9 |     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  10 |     {
-✓ Compiled in 177ms
-✓ Compiled in 106ms
+Run kill 39362 to stop it.
+[?25h
+npm notice
+npm notice New minor version of npm available! 11.11.0 -> 11.16.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+npm notice To update run: npm install -g npm@11.16.0
+npm notice

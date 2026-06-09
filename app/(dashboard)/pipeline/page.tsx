@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { formatCurrency } from "@/lib/utils";
-import { convertDealToProject } from "@/lib/actions/deal.actions";
+import { ConvertButton } from "@/components/convert-button";
 import {
   Plus,
   MoreVertical,
@@ -103,18 +103,7 @@ function DealCard({ deal }: { deal: Deal }) {
         </span>
 
         {deal.stage === 'won' && (
-          <form action={async () => {
-            'use server';
-            await convertDealToProject(deal.id);
-          }}>
-            <button
-              type="submit"
-              className="bg-brand-gold text-brand-navy p-1.5 rounded-md hover:bg-brand-gold-dk/80 transition-colors flex items-center gap-1 text-[10px] font-bold uppercase tracking-tighter"
-            >
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              Convert
-            </button>
-          </form>
+          <ConvertButton dealId={deal.id} />
         )}
       </div>
     </div>

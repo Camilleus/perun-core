@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui";
+import { EarlyBirdBanner } from "@/components/early-bird-banner";
 import {
   Zap,
   ShieldCheck,
@@ -21,8 +22,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-hero text-white selection:bg-brand-gold selection:text-black font-sans">
+      <EarlyBirdBanner className="fixed top-0 w-full z-[60]" />
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-gradient-hero/80 backdrop-blur-md border-b border-white/5">
+      <nav className="fixed top-12 w-full z-50 bg-gradient-hero/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 group cursor-pointer">
             <Zap className="w-8 h-8 text-brand-gold fill-brand-gold group-hover:scale-110 transition-transform" />
@@ -40,7 +42,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
            <div className="absolute top-[10%] left-[5%] w-[50%] h-[50%] bg-brand-navy-lt/20 blur-[140px] rounded-full animate-pulse" />
@@ -49,12 +51,12 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-xs font-black uppercase tracking-widest mb-10 animate-in slide-in-from-bottom-4 duration-500">
-               <Zap className="w-4 h-4 fill-brand-gold" /> Early Bird – 79–99 zł/mies (limit 30 firm)
-            </div>
+            <Link href="/early-bird" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-gold text-brand-navy text-xs font-black uppercase tracking-widest mb-10 animate-in slide-in-from-bottom-4 duration-500 hover:scale-105 transition-all shadow-[0_0_30px_rgba(209,166,96,0.3)] group">
+               <Zap className="w-4 h-4 fill-brand-navy animate-pulse" /> Early Bird – 79–99 zł/mies (limit 30 firm) <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
             <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.85] mb-10 animate-in slide-in-from-bottom-6 duration-700">
               Chronię Twoją marżę. <br/>
-              <span className="text-brand-gold">Zanim stracisz pieniądze.</span>
+              <span className="text-brand-gold drop-shadow-[0_0_30px_rgba(209,166,96,0.3)]">Zanim stracisz pieniądze.</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 font-medium leading-relaxed mb-12 max-w-2xl animate-in slide-in-from-bottom-8 duration-900">
               Project-First CRM dla firm, które zarabiają na projektach. <br className="hidden md:block"/>
@@ -64,7 +66,7 @@ export default function Home() {
               <Link href="/login" className="px-10 py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-[0_0_50px_var(--shadow-navy)] text-center flex items-center justify-center gap-2">
                 Uruchom darmowe demo <ArrowRight className="w-5 h-5" />
               </Link>
-              <a href="#oferta" className="px-10 py-6 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all text-center flex items-center justify-center gap-2">
+              <a href="#early-bird-section" className="px-10 py-6 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all text-center flex items-center justify-center gap-2">
                 Zobacz ofertę Early Bird
               </a>
             </div>
@@ -205,6 +207,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Dedicated Early Bird Counter Section */}
+      <section id="early-bird-section" className="py-24 bg-brand-gold relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <div className="text-brand-navy max-w-xl">
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-6 leading-none">
+                Zostało tylko <br/>
+                <span className="text-white drop-shadow-sm">12 z 30 miejsc</span>
+              </h2>
+              <p className="text-lg font-bold opacity-80 mb-8">
+                Dołącz do grona Fundatorów Perun Core i zablokuj cenę 79-99 PLN na zawsze.
+                Gdy licznik osiągnie zero, cena wzrośnie do 149 PLN.
+              </p>
+              <div className="w-full h-4 bg-brand-navy/10 rounded-full overflow-hidden mb-4 p-1 border border-brand-navy/5">
+                 <div className="h-full bg-brand-navy rounded-full shadow-lg" style={{ width: '60%' }} />
+              </div>
+              <p className="text-xs font-black uppercase tracking-widest opacity-60">Status: 18 firm już chroni swoją marżę</p>
+            </div>
+            <Link href="/early-bird" className="px-12 py-8 bg-brand-navy text-brand-gold rounded-[2rem] font-black uppercase tracking-[0.2em] text-lg hover:scale-105 transition-all shadow-2xl flex items-center gap-4 group">
+              Zajmij swoje miejsce <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+            </Link>
+          </div>
+        </div>
+        {/* Background Patterns */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-navy/5 blur-[80px] rounded-full -translate-x-1/2 translate-y-1/2" />
+      </section>
+
       {/* Early Bird / Offer Section */}
       <section id="oferta" className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6">
@@ -248,8 +278,8 @@ export default function Home() {
 
                  <p className="text-gray-500 font-black uppercase tracking-widest text-[10px] mb-6">Abonament miesięczny</p>
                  <div className="flex justify-center items-end gap-2 mb-2">
-                    <span className="text-8xl font-black tracking-tighter">79</span>
-                    <span className="text-3xl font-black text-gray-500 mb-2"> PLN</span>
+                    <span className="text-7xl md:text-8xl font-black tracking-tighter text-white">79-99</span>
+                    <span className="text-2xl md:text-3xl font-black text-gray-500 mb-2"> PLN</span>
                  </div>
                  <p className="text-brand-gold font-bold text-lg mb-10">za użytkownika / m-ce</p>
 
@@ -261,7 +291,7 @@ export default function Home() {
                     <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
                        <div className="w-[40%] h-full bg-brand-gold shadow-[0_0_15px_var(--shadow-navy)]" />
                     </div>
-                    <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 18 wolnych licencji w tej cenie.</p>
+                    <p className="text-[10px] text-gray-600 font-bold text-center italic">Zostało tylko 18 wolnych licencji z blokadą ceny na 12 miesięcy.</p>
                  </div>
 
                  <Link href="/login?plan=early-bird" className="block w-full py-6 bg-brand-gold text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all shadow-lg">
